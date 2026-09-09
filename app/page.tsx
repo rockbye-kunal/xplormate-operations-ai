@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Check, ChevronDown, CircleAlert, Database, Factory, Gauge, MessageSquareText, ShieldCheck, Users } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Boxes, Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, MessageSquareText, ShieldCheck, Users, Wrench } from "lucide-react";
 
 const linkedinProfile = "https://www.linkedin.com/in/jeetendra-yadav-4363457a/";
 const linkedinCompany = "https://www.linkedin.com/company/xplormate/";
 
 const problems = [
-  { number: "01", title: "Production follow-ups", copy: "Turn scattered order updates into a clear operating picture and an owned next action." },
-  { number: "02", title: "Quality issue closure", copy: "Keep investigation, corrective action, approval, and evidence moving toward verified closure." },
-  { number: "03", title: "Shift and maintenance handovers", copy: "Carry open issues, context, decisions, and ownership cleanly across teams and shifts." },
-  { number: "04", title: "Material readiness", copy: "Connect material risks to production impact before tomorrow’s plan is interrupted." },
+  { number: "01", icon: Clock3, title: "Production follow-ups", question: "Where are we on this order?", copy: "Updates move across plans, spreadsheets, meetings, and messages. Managers keep rebuilding the same picture before they can act.", signal: "Order status changed", measure: "Time spent chasing status" },
+  { number: "02", icon: ClipboardCheck, title: "Quality issue closure", question: "Who owns this issue — and is it actually closed?", copy: "Detection may be recorded, while investigation, corrective action, approval, and evidence continue through separate channels.", signal: "Deviation raised", measure: "Detection to verified closure" },
+  { number: "03", icon: Wrench, title: "Shift & maintenance handovers", question: "Did the next person receive the full context?", copy: "Open problems cross shifts and departments. The action survives, but the history and reasoning often do not.", signal: "Open issue at handover", measure: "Unresolved handovers" },
+  { number: "04", icon: Boxes, title: "Material readiness", question: "What could interrupt tomorrow’s plan?", copy: "Inventory records exist, yet the operational consequence, responsible person, and next action still need manual coordination.", signal: "Material at risk", measure: "Time to identify a blocker" },
 ];
 
 const opportunities = [
@@ -99,7 +99,7 @@ export default function Home() {
     <section className="problem-section" id="possibilities"><div className="problem-backdrop"><img src="/human-oversight.png" alt="Manufacturing professional reviewing operations from a control room" /></div><div className="shell problem-content">
       <div className="section-topline light"><span>02 / WHERE WORK SLOWS DOWN</span><span>RECOGNISE THE PATTERN</span></div>
       <div className="section-heading wide-heading"><h2>The factory rarely slows because information is completely missing.</h2><p>It slows because the next action is unclear.</p></div>
-      <div className="problem-cards">{problems.map((item) => <article className="problem-card" key={item.title}><div className="problem-card-top"><span>{item.number}</span></div><h3>{item.title}</h3><p>{item.copy}</p></article>)}</div>
+      <div className="problem-cards">{problems.map((item, index) => { const Icon = item.icon; return <article className={`problem-card offset-${index}`} key={item.title}><div className="problem-card-top"><span>{item.number}</span><Icon size={23} strokeWidth={1.35} /></div><small>{item.signal}</small><h3>{item.title}</h3><blockquote>“{item.question}”</blockquote><p>{item.copy}</p><div className="measure"><span>POSSIBLE MEASURE</span>{item.measure}</div></article>; })}</div>
     </div></section>
 
     <section className="transformation section-ivory" id="approach"><div className="shell">
