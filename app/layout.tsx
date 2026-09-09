@@ -1,9 +1,41 @@
-import type { Metadata } from 'next';
-import './globals.css';
+import type { Metadata } from "next";
+import "./globals.css";
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://xplormate-manufacturing.jeetendra456.chatgpt.site";
+
 export const metadata: Metadata = {
- title: 'Xplormate | AI transformation for manufacturing operations',
- description: 'Explore where AI can reduce the follow-ups around production, quality, maintenance, and materials. Start with one workflow and a conversation with Xplormate.',
- openGraph: {title:'Your factory runs on processes. Too much still runs on follow-ups.',description:'AI transformation for manufacturing operations. Find a practical place to start with Xplormate.',type:'website'},
- icons:{icon:'/xplormate-logo.jpg',shortcut:'/xplormate-logo.jpg'},
+  metadataBase: new URL(siteUrl),
+  title: "Xplormate | AI transformation for manufacturing operations",
+  description:
+    "Transform the follow-ups, handovers, decisions, and exception handling around your manufacturing operation.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Your systems record the work. AI can help move it forward.",
+    description:
+      "Explore practical AI transformation opportunities across production, quality, maintenance, materials, handovers, and reporting.",
+    url: "/",
+    siteName: "Xplormate",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Xplormate | AI transformation for manufacturing operations",
+    description:
+      "Explore practical AI transformation opportunities across manufacturing operations.",
+  },
+  icons: {
+    icon: "/xplormate-logo.jpg",
+    shortcut: "/xplormate-logo.jpg",
+    apple: "/xplormate-logo.jpg",
+  },
 };
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body>{children}</body></html>}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}

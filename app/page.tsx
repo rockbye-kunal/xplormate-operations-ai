@@ -1,46 +1,114 @@
-import { ArrowUpRight, ArrowRight, ClipboardList, ShieldCheck, Wrench, Boxes, Check } from 'lucide-react';
+"use client";
+
+import { useState } from "react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Boxes, Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, MessageSquareText, ShieldCheck, Users, Wrench } from "lucide-react";
+
+const linkedinProfile = "https://www.linkedin.com/in/jeetendra-yadav-4363457a/";
+const linkedinCompany = "https://www.linkedin.com/company/xplormate/";
+
+const problems = [
+  { number: "01", icon: Clock3, title: "Production follow-ups", question: "Where are we on this order?", copy: "Updates move across plans, spreadsheets, meetings, and messages. Managers keep rebuilding the same picture before they can act.", signal: "Order status changed", measure: "Time spent chasing status" },
+  { number: "02", icon: ClipboardCheck, title: "Quality issue closure", question: "Who owns this issue — and is it actually closed?", copy: "Detection may be recorded, while investigation, corrective action, approval, and evidence continue through separate channels.", signal: "Deviation raised", measure: "Detection to verified closure" },
+  { number: "03", icon: Wrench, title: "Shift & maintenance handovers", question: "Did the next person receive the full context?", copy: "Open problems cross shifts and departments. The action survives, but the history and reasoning often do not.", signal: "Open issue at handover", measure: "Unresolved handovers" },
+  { number: "04", icon: Boxes, title: "Material readiness", question: "What could interrupt tomorrow’s plan?", copy: "Inventory records exist, yet the operational consequence, responsible person, and next action still need manual coordination.", signal: "Material at risk", measure: "Time to identify a blocker" },
+];
+
+const opportunities = [
+  { id: "production", label: "Production", index: "01", title: "Production planning & execution", friction: "The plan changes, but the updated priority and its impact do not reach every owner at the same time.", ai: "Gather current context, highlight deviations, and prepare the next follow-up for review.", human: "Confirm the operational priority and approve changes that affect the plan.", measure: "Follow-up effort and response time", question: "Where do plan-versus-actual updates live today?" },
+  { id: "quality", label: "Quality", index: "02", title: "Quality management", friction: "Corrective actions require repeated follow-up, and closure evidence can be difficult to assemble.", ai: "Organise context, identify missing evidence, and support accountable owner follow-ups.", human: "Approve disposition, validate corrective action, and verify closure.", measure: "Time from issue detection to verified closure", question: "Where are issues, actions, and evidence currently recorded?" },
+  { id: "maintenance", label: "Maintenance", index: "03", title: "Maintenance coordination", friction: "Requests, observations, spares, and production constraints arrive through different channels.", ai: "Connect the available context, surface missing inputs, and keep the next action visible.", human: "Set priority, approve safety-sensitive work, and confirm equipment readiness.", measure: "Open-request age and repeat follow-ups", question: "How does a maintenance request move from report to verified completion?" },
+  { id: "materials", label: "Materials", index: "04", title: "Materials & procurement", friction: "A late component becomes urgent only after its effect on production is manually understood.", ai: "Relate material signals to orders, timing, and ownership, then prepare an exception summary.", human: "Validate the constraint and decide the supplier or planning response.", measure: "Time from risk signal to owned action", question: "Which sources are checked before material readiness is confirmed?" },
+  { id: "handovers", label: "Handovers", index: "05", title: "Shift handovers", friction: "The incoming team receives a list of issues without the full context, decision history, or clear owners.", ai: "Structure open items, carry forward context, and flag what still needs acknowledgement.", human: "Confirm what was handed over and accept responsibility for the next step.", measure: "Missed or repeatedly explained open items", question: "How is acknowledgement captured between shifts?" },
+  { id: "reporting", label: "Reporting", index: "06", title: "Operational reporting", friction: "Teams spend time collecting updates before leaders can understand what needs attention.", ai: "Compile updates, separate exceptions from routine activity, and make missing context explicit.", human: "Interpret trade-offs and decide where management attention is required.", measure: "Preparation time and missing-update rate", question: "Which recurring report depends most on manual consolidation?" },
+];
+
+const stages = [
+  { number: "01", title: "Signal", copy: "A material shortage is reported before the next shift.", icon: CircleAlert },
+  { number: "02", title: "Context", copy: "Affected orders, timing, messages, and available stock are connected.", icon: Database },
+  { number: "03", title: "Owner", copy: "The right buyer and planner receive a clear, shared operating picture.", icon: Users },
+  { number: "04", title: "Action", copy: "AI prepares the follow-up and surfaces exceptions for review.", icon: MessageSquareText },
+  { number: "05", title: "Closure", copy: "A person confirms the response, updates the plan, and closes the loop.", icon: Check },
+];
+
+const faq = [
+  ["Where can AI fit within manufacturing operations?", "A useful starting point is usually a recurring coordination task: gathering updates, connecting context, routing an exception, preparing a follow-up, or confirming closure. The workflow and its consequences determine what AI should support."],
+  ["Would this replace our ERP or MES?", "Replacing a core system is not the starting assumption. We first look at the work surrounding your current ERP, MES, spreadsheets, email, and messaging tools, then assess what connection would actually be useful."],
+  ["What if information is spread across different systems?", "That is common and part of the workflow assessment. We map where the information lives, who owns it, when it becomes available, and what can be accessed safely before suggesting an intervention."],
+  ["Will AI make operational decisions independently?", "The level of autonomy depends on the task and its consequences. The workflow should explicitly define permissions, human approvals, exception handling, escalation rules, and a review trail."],
+  ["How should we select the first opportunity?", "Choose a recurring task with visible coordination effort, a clear owner, accessible information, and an outcome that can be measured. A narrow workflow creates a better starting point than a broad transformation programme."],
+  ["What happens after the first conversation?", "We map one recent example, identify where work slowed down, and assess whether AI is appropriate. If the opportunity is credible, the next step is a bounded workflow definition with controls and a success measure."],
+];
 
 export default function Home() {
- return <main id="top">
-  <header className="nav wrap"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="42" height="42"/>xplormate<span className="brand-period">.</span></a><nav aria-label="Main navigation"><a href="#opportunities">Opportunities</a><a href="#approach">Our approach</a><a className="nav-cta" href="#contact">Let’s talk <ArrowUpRight size={17}/></a></nav></header>
-  <section className="hero wrap"><div className="eyebrow"><span className="eyebrow-line"/> AI TRANSFORMATION FOR MANUFACTURING</div><h1>Your factory runs<br/>on processes.<br/><span>Too much still runs<br className="desktop-break"/> on follow-ups.</span></h1><div className="hero-bottom"><p>Bring AI into the work between your systems.<br className="desktop-break"/> Start with the updates, handovers, and open issues<br className="desktop-break"/> your team spends its day chasing.</p><a className="button primary" href="#contact">Find your first AI opportunity <ArrowUpRight size={21}/></a></div><div className="hero-foot"><span>PRODUCTION / QUALITY / MAINTENANCE / MATERIALS</span><a href="#opportunities">Explore the possibilities <ArrowRight size={16}/></a></div></section>
-  <section className="light-section" id="opportunities"><div className="wrap opportunities">
-   <div className="section-label">01 / WHERE TO START</div>
-   <div className="section-heading"><h2>The next improvement<br/>is hiding in the follow-up.</h2><p>Your systems hold the records. Your people connect the dots. Explore where AI could help with the coordination work in between.</p></div>
-   <div className="opportunity-grid">
-    {[
-     {icon:ClipboardList,n:'01',title:'Production follow-ups',pain:'“Where are we on this order?”',body:'Bring scattered updates into a clearer picture of progress, blockers, and the next action.',measure:'Time spent chasing status'},
-     {icon:ShieldCheck,n:'02',title:'Quality issue closure',pain:'“Who is closing this issue?”',body:'Turn an issue report into an accountable follow-up, with an owner, a due date, and evidence of closure.',measure:'Time from issue to verified closure'},
-     {icon:Wrench,n:'03',title:'Maintenance coordination',pain:'“Did the next shift pick this up?”',body:'Carry open issues, maintenance requests, and decisions across shifts with the context intact.',measure:'Unresolved handovers and repeat follow-ups'},
-     {icon:Boxes,n:'04',title:'Material readiness',pain:'“What could hold up tomorrow’s plan?”',body:'Surface missing updates and potential shortages so the right person can investigate before production is affected.',measure:'Time to identify and act on a blocker'}
-    ].map(item=><article className="opportunity" key={item.n}><div className="card-top"><item.icon size={25} strokeWidth={1.4}/><span>{item.n}</span></div><h3>{item.title}</h3><p className="pain">{item.pain}</p><p>{item.body}</p><div className="measure"><span>POSSIBLE SUCCESS MEASURE</span>{item.measure}</div></article>)}
-   </div><p className="caption">Illustrative opportunities to assess together. Scope and feasibility depend on your workflow, systems, and data.</p>
-  </div></section>
-  <section className="workflow wrap"><div className="section-label">02 / FROM SIGNAL TO CLOSURE</div><div className="section-heading"><h2>An update should lead<br/>to something happening.</h2><p>Visibility is a start. The useful question is what happens next, who owns it, and how you know it is done.</p></div>
-   <div className="example-label"><span>ILLUSTRATIVE WORKFLOW</span><span>A material shortage before the next shift</span></div>
-   <div className="flow-grid">
-    <article><div className="flow-number">01 <ArrowRight size={19}/></div><h3>Signal</h3><p>A planner flags that a required part has not arrived.</p><span className="flow-tag">Capture the context</span></article>
-    <article><div className="flow-number">02 <ArrowRight size={19}/></div><h3>Owner</h3><p>The buyer receives the issue with the affected order and timing.</p><span className="flow-tag">Make responsibility clear</span></article>
-    <article><div className="flow-number">03 <ArrowRight size={19}/></div><h3>Action</h3><p>AI could organise the updates and draft a follow-up for review.</p><span className="flow-tag">Support the next step</span></article>
-    <article><div className="flow-number">04 <Check size={19}/></div><h3>Closure</h3><p>The responsible person confirms receipt and updates the plan.</p><span className="flow-tag">Verify the outcome</span></article>
-   </div><div className="workflow-note"><ShieldCheck size={21}/><p>People approve consequential decisions. A proposed workflow must define what AI can do, when to escalate, and who signs off.</p></div>
-  </section>
-  <section className="light-section" id="approach"><div className="wrap approach"><div className="section-label">03 / OUR APPROACH</div><div className="approach-layout"><div className="approach-intro"><h2>Start with the work.<br/>Make AI earn<br/>its place.</h2><p>We’re speaking with manufacturing teams to understand where coordination breaks down and where AI could make a measurable difference.</p><a className="text-link" href="#contact">Explore a workflow with us <ArrowUpRight size={18}/></a></div><div className="steps">
-   <article><span>01</span><div><h3>Understand what actually happens</h3><p>Walk through a recent example: the trigger, the people involved, the systems used, and the point where work got stuck.</p><small>START WITH A REAL WORKFLOW</small></div></article>
-   <article><span>02</span><div><h3>Find a worthwhile intervention</h3><p>Identify a specific task AI could support. Check data access, exceptions, human review, and whether simpler changes would solve the problem.</p><small>AGREE ON THE PROBLEM AND THE BASELINE</small></div></article>
-   <article><span>03</span><div><h3>Scope a focused pilot</h3><p>If there is a fit, define the boundaries, responsibilities, cost, and success measure before making a delivery commitment.</p><small>DECIDE WHAT WOULD MAKE IT WORTHWHILE</small></div></article>
-  </div></div></div></section>
-  <section className="faq wrap" id="questions"><div><div className="section-label">04 / A FEW PRACTICAL QUESTIONS</div><h2>Before we talk.</h2><p>Clear expectations from<br/>the first conversation.</p></div><div className="faq-items">
-   {[
-    ['Is Xplormate a ready-to-use software product?','Xplormate is at the discovery stage. We’re exploring AI transformation with manufacturing teams, starting with specific operating problems. An initial conversation is about understanding your workflow and assessing fit; it is not a demonstration of a finished platform.'],
-    ['Do we need to replace our ERP or MES?','Replacing a core system is not the starting assumption. We first look at the coordination around your current tools. Any proposed connection to an ERP, MES, spreadsheet, or messaging system would need a separate feasibility and access review.'],
-    ['What if our data is scattered or incomplete?','That is useful to understand early. We can discuss what information exists, where it lives, and who owns it. Some workflows may need better records or a simpler process before AI would be useful.'],
-    ['Will AI make decisions on its own?','The appropriate level of autonomy depends on the task and its consequences. Any pilot should explicitly define human approvals, exception handling, access limits, and a way to review what happened.'],
-    ['Can you share case studies or guaranteed savings?','We do not yet have customer case studies to share. The examples on this page illustrate potential workflows, not delivered results. Savings, scope, and timelines would need to be assessed against your operation.'],
-    ['What should I bring to the first conversation?','One recent example of work getting delayed or repeatedly chased is enough to start. Describe the people, tools, and handoffs involved. There is no need to share confidential production data or documents in an introductory LinkedIn message.']
-   ].map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}
-  </div></section>
-  <section className="contact wrap" id="contact"><div className="section-label">LET’S START WITH YOUR OPERATION</div><h2>What is your team<br/><span>still chasing?</span></h2><p>Start with one recurring bottleneck. Let’s map what happens today, explore where AI might help, and see whether there is a sensible next step.</p><a className="button primary" href="https://www.linkedin.com/in/jeetendra-yadav-4363457a/" target="_blank" rel="noopener noreferrer">Talk to Jeetu on LinkedIn <ArrowUpRight size={21}/></a><small>Connect or message Jeetu on LinkedIn. Mention the workflow you want to improve.</small><div className="conversation-prompt"><span>A SIMPLE WAY TO START</span><p>“We spend a lot of time following up on ___. Today, we handle it through ___. I’d like to explore a better way.”</p></div></section>
-  <footer className="wrap"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="42" height="42"/>xplormate<span className="brand-period">.</span></a><span>AI transformation for manufacturing operations.</span><a href="https://www.linkedin.com/company/xplormate/" target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16}/></a></footer>
- </main>
+  const [activeOpportunity, setActiveOpportunity] = useState(0);
+  const active = opportunities[activeOpportunity];
+
+  return <main id="top">
+    <header className="site-header"><div className="header-inner">
+      <a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>xplormate<span className="brand-dot">.</span></span></a>
+      <nav aria-label="Main navigation"><a href="#possibilities">Possibilities</a><a href="#approach">Approach</a><a href="#questions">Questions</a></nav>
+      <a className="header-cta" href="#contact">Start a conversation <ArrowUpRight size={17} /></a>
+    </div></header>
+
+    <section className="hero">
+      <img className="hero-image" src="/xplormate-hero.png" alt="Modern manufacturing floor during an active shift" />
+      <div className="hero-shade" /><div className="hero-grid" aria-hidden="true" />
+      <div className="hero-content shell">
+        <div className="hero-kicker"><span className="signal-pulse" /> AI TRANSFORMATION FOR MANUFACTURING OPERATIONS</div>
+        <h1>Your systems record<br />the work. <em>AI can help<br />move it forward.</em></h1>
+        <div className="hero-actions"><p>Transform the follow-ups, handovers, decisions, and exception handling around your manufacturing operation.</p><div className="button-row"><a className="button button-amber" href="#contact">Explore your first AI transformation opportunity <ArrowUpRight size={20} /></a><a className="button button-ghost" href="#signal-story">See how it could work <ArrowDown size={18} /></a></div></div>
+        <div className="hero-meta"><span>PRODUCTION / QUALITY / MAINTENANCE / MATERIALS</span><span className="system-status"><i /> OPERATIONAL SIGNALS IN MOTION</span></div>
+      </div>
+    </section>
+
+    <section className="signal-story section-dark" id="signal-story"><div className="shell">
+      <div className="section-topline"><span>01 / THE OPERATING LOOP</span><span>ILLUSTRATIVE WORKFLOW</span></div>
+      <div className="section-heading split-heading"><h2>An update should lead<br />to something happening.</h2><p>Visibility is the beginning. The useful question is what happens next, who owns it, and how the operation knows it is complete.</p></div>
+      <div className="signal-visual"><img src="/operational-signal.png" alt="Close-up of industrial machinery and an active sensor" /><div className="signal-overlay">
+        <div className="signal-alert"><span className="alert-icon">!</span><div><small>NEW OPERATIONAL SIGNAL</small><strong>Material shortage before next shift</strong></div><span className="signal-time">14:32</span></div>
+        <div className="signal-trace" aria-hidden="true"><span /><span /><span /><span /><span /></div>
+        <div className="stage-grid">{stages.map((stage) => { const Icon = stage.icon; return <article key={stage.title} className="stage-card"><div className="stage-head"><span>{stage.number}</span><Icon size={20} strokeWidth={1.5} /></div><h3>{stage.title}</h3><p>{stage.copy}</p></article>; })}</div>
+      </div></div>
+      <div className="control-note"><ShieldCheck size={21} /><p>People approve consequential decisions. Every workflow should define what AI may do, when it escalates, and who signs off.</p></div>
+    </div></section>
+
+    <section className="problem-section" id="possibilities"><div className="problem-backdrop"><img src="/human-oversight.png" alt="Manufacturing professional reviewing operations from a control room" /></div><div className="shell problem-content">
+      <div className="section-topline light"><span>02 / WHERE WORK SLOWS DOWN</span><span>RECOGNISE THE PATTERN</span></div>
+      <div className="section-heading wide-heading"><h2>The factory rarely slows because information is completely missing.</h2><p>It slows because the next action is unclear.</p></div>
+      <div className="problem-cards">{problems.map((item, index) => { const Icon = item.icon; return <article className={`problem-card offset-${index}`} key={item.title}><div className="problem-card-top"><span>{item.number}</span><Icon size={23} strokeWidth={1.35} /></div><small>{item.signal}</small><h3>{item.title}</h3><blockquote>“{item.question}”</blockquote><p>{item.copy}</p><div className="measure"><span>POSSIBLE MEASURE</span>{item.measure}</div></article>; })}</div>
+    </div></section>
+
+    <section className="transformation section-ivory" id="approach"><div className="shell">
+      <div className="section-topline dark"><span>03 / WHAT TRANSFORMATION MEANS</span><span>WORK BEFORE TECHNOLOGY</span></div>
+      <div className="section-heading split-heading dark-copy"><h2>AI transformation starts with changing how work moves.</h2><p>Technology earns its place when it makes a real operating process clearer, faster, and easier to control.</p></div>
+      <div className="transformation-cards"><article><span>01</span><Factory size={31} strokeWidth={1.25} /><h3>Understand the operation</h3><p>Map what happens when production deviates from the plan: the trigger, people, systems, exceptions, and decisions.</p></article><article><span>02</span><Gauge size={31} strokeWidth={1.25} /><h3>Redesign the workflow</h3><p>Identify where AI can gather context, reduce coordination work, prepare actions, and surface exceptions.</p></article><article><span>03</span><ShieldCheck size={31} strokeWidth={1.25} /><h3>Keep people in control</h3><p>Define what AI can handle, what requires approval, when it must escalate, and how actions are reviewed.</p></article></div>
+    </div></section>
+
+    <section className="explorer section-dark" id="explorer"><div className="shell">
+      <div className="section-topline"><span>04 / OPPORTUNITY EXPLORER</span><span>SELECT AN OPERATING AREA</span></div>
+      <div className="section-heading split-heading"><h2>Where could work<br />move differently?</h2><p>Explore the coordination patterns around six common manufacturing areas. The right starting point depends on your workflow, systems, and operating constraints.</p></div>
+      <div className="explorer-grid"><div className="explorer-tabs" role="tablist" aria-label="Manufacturing operating areas">{opportunities.map((item, index) => <button key={item.id} role="tab" aria-selected={activeOpportunity === index} aria-controls="opportunity-panel" onClick={() => setActiveOpportunity(index)}><span>{item.index}</span>{item.label}<ArrowRight size={18} /></button>)}</div>
+        <div className="explorer-panel" id="opportunity-panel" role="tabpanel"><div className="panel-orbit" aria-hidden="true"><span /><span /><span /></div><div className="panel-index">{active.index}</div><h3>{active.title}</h3><div className="panel-facts"><div><small>COMMON FRICTION</small><p>{active.friction}</p></div><div><small>POTENTIAL AI ROLE</small><p>{active.ai}</p></div><div><small>HUMAN RESPONSIBILITY</small><p>{active.human}</p></div></div><div className="panel-footer"><div><small>POSSIBLE SUCCESS MEASURE</small><strong>{active.measure}</strong></div><div><small>FIRST FEASIBILITY QUESTION</small><strong>{active.question}</strong></div></div></div>
+      </div>
+    </div></section>
+
+    <section className="point-of-view section-amber"><div className="shell">
+      <div className="section-topline dark"><span>05 / XPLORMATE POINT OF VIEW</span><span>THE OPERATIONAL LAYER</span></div>
+      <div className="statement"><p>Systems provide visibility.</p><h2>Operations improve when visibility leads to action.</h2></div>
+      <div className="pov-grid"><p>Most manufacturers already have systems, spreadsheets, reports, and experienced people. The opportunity is often found in the work between them: gathering context, coordinating decisions, following up with owners, managing exceptions, and confirming that an issue is truly closed.</p><p>Xplormate focuses on this operational layer. We examine how work moves today and where AI can support a faster, clearer, and more accountable process.</p></div>
+    </div></section>
+
+    <section className="approach section-ivory"><div className="shell">
+      <div className="section-topline dark"><span>06 / A PRACTICAL START</span><span>ONE BOTTLENECK AT A TIME</span></div>
+      <div className="approach-layout"><div className="approach-intro"><h2>Start with one operational bottleneck.</h2><p>A focused workflow gives every conversation a real trigger, responsible people, operating constraints, and an outcome worth measuring.</p><a href="#contact">Discuss a workflow <ArrowUpRight size={18} /></a></div><div className="approach-steps">{[["01", "Observe the real workflow", "Walk through a recent example: the trigger, people, tools, delays, exceptions, and decisions."], ["02", "Find the intervention", "Identify where AI could remove coordination effort or make the next action clearer."], ["03", "Define control", "Specify permissions, human approvals, escalation rules, and operational boundaries."], ["04", "Establish the measure", "Choose a practical baseline such as follow-up time, closure time, planning effort, or unresolved handovers."], ["05", "Scope the first implementation", "Define the workflow boundary, required information, responsibilities, integration needs, and expected outcome."]].map(([n, title, copy]) => <article key={n}><span>{n}</span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div></div>
+    </div></section>
+
+    <section className="evaluation section-dark"><div className="shell evaluation-grid"><div><div className="section-topline"><span>07 / BEFORE APPLYING AI</span></div><h2>Understand the operation.</h2><p>The goal is a workflow people can trust, operate, and improve.</p></div><div className="evaluation-list">{["Actual workflow and exceptions", "ERP, MES, spreadsheets, email, and messages", "Information availability and ownership", "Human approvals and escalation", "Operational and security constraints", "Current effort and delays", "A measurable definition of success"].map((item, index) => <div key={item}><span>{String(index + 1).padStart(2, "0")}</span><strong>{item}</strong><Check size={17} /></div>)}</div></div></section>
+
+    <section className="faq section-ivory" id="questions"><div className="shell faq-grid"><div className="faq-intro"><div className="section-topline dark"><span>08 / PRACTICAL QUESTIONS</span></div><h2>Before we talk.</h2><p>Clear expectations make the first conversation more useful.</p></div><div className="faq-items">{faq.map(([question, answer]) => <details key={question}><summary>{question}<ChevronDown size={20} /></summary><p>{answer}</p></details>)}</div></div></section>
+
+    <section className="contact section-dark" id="contact"><div className="contact-glow" aria-hidden="true" /><div className="shell contact-grid"><div><div className="section-topline"><span>09 / START THE CONVERSATION</span></div><h2>What does your team <em>keep chasing?</em></h2></div><div className="contact-content"><p>Start with one recurring bottleneck: an update that takes too long, an issue that loses ownership, or a decision that waits for missing context.</p><a className="button button-amber" href={linkedinProfile} target="_blank" rel="noopener noreferrer">Explore your first AI transformation opportunity <ArrowUpRight size={20} /></a><small>Connect or message on LinkedIn. Mention the workflow you want to improve.</small><blockquote><span>A SIMPLE WAY TO START</span>“We spend a lot of time following up on ____. Today, it moves through ____. I’d like to explore whether there is a better way.”</blockquote></div></div></section>
+
+    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>xplormate<span className="brand-dot">.</span></span></a><p>AI transformation for manufacturing operations.</p><a href={linkedinCompany} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></footer>
+  </main>;
 }
