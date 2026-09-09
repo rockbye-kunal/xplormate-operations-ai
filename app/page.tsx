@@ -43,6 +43,31 @@ export default function Home() {
   const [activeOpportunity, setActiveOpportunity] = useState(0);
   const active = opportunities[activeOpportunity];
 
+  const selectOpportunityFromKeyboard = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    currentIndex: number,
+  ) => {
+    let nextIndex = currentIndex;
+
+    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+      nextIndex = (currentIndex + 1) % opportunities.length;
+    } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+      nextIndex = (currentIndex - 1 + opportunities.length) % opportunities.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = opportunities.length - 1;
+    } else {
+      return;
+    }
+
+    event.preventDefault();
+    setActiveOpportunity(nextIndex);
+    requestAnimationFrame(() => {
+      document.getElementById(`opportunity-tab-${opportunities[nextIndex].id}`)?.focus();
+    });
+  };
+
   return <main id="top">
     <header className="site-header"><div className="header-inner">
       <a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>xplormate<span className="brand-dot">.</span></span></a>
@@ -87,8 +112,8 @@ export default function Home() {
     <section className="explorer section-dark" id="explorer"><div className="shell">
       <div className="section-topline"><span>04 / OPPORTUNITY EXPLORER</span><span>SELECT AN OPERATING AREA</span></div>
       <div className="section-heading split-heading"><h2>Where could work<br />move differently?</h2><p>Explore the coordination patterns around six common manufacturing areas. The right starting point depends on your workflow, systems, and operating constraints.</p></div>
-      <div className="explorer-grid"><div className="explorer-tabs" role="tablist" aria-label="Manufacturing operating areas">{opportunities.map((item, index) => <button key={item.id} role="tab" aria-selected={activeOpportunity === index} aria-controls="opportunity-panel" onClick={() => setActiveOpportunity(index)}><span>{item.index}</span>{item.label}<ArrowRight size={18} /></button>)}</div>
-        <div className="explorer-panel" id="opportunity-panel" role="tabpanel"><div className="panel-orbit" aria-hidden="true"><span /><span /><span /></div><div className="panel-index">{active.index}</div><h3>{active.title}</h3><div className="panel-facts"><div><small>COMMON FRICTION</small><p>{active.friction}</p></div><div><small>POTENTIAL AI ROLE</small><p>{active.ai}</p></div><div><small>HUMAN RESPONSIBILITY</small><p>{active.human}</p></div></div><div className="panel-footer"><div><small>POSSIBLE SUCCESS MEASURE</small><strong>{active.measure}</strong></div><div><small>FIRST FEASIBILITY QUESTION</small><strong>{active.question}</strong></div></div></div>
+      <div className="explorer-grid"><div className="explorer-tabs" role="tablist" aria-label="Manufacturing operating areas">{opportunities.map((item, index) => <button key={item.id} id={`opportunity-tab-${item.id}`} role="tab" aria-selected={activeOpportunity === index} aria-controls="opportunity-panel" tabIndex={activeOpportunity === index ? 0 : -1} onClick={() => setActiveOpportunity(index)} onKeyDown={(event) => selectOpportunityFromKeyboard(event, index)}><span>{item.index}</span>{item.label}<ArrowRight size={18} /></button>)}</div>
+        <div className="explorer-panel" id="opportunity-panel" role="tabpanel" aria-labelledby={`opportunity-tab-${active.id}`}><div className="panel-orbit" aria-hidden="true"><span /><span /><span /></div><div className="panel-index">{active.index}</div><h3>{active.title}</h3><div className="panel-facts"><div><small>COMMON FRICTION</small><p>{active.friction}</p></div><div><small>POTENTIAL AI ROLE</small><p>{active.ai}</p></div><div><small>HUMAN RESPONSIBILITY</small><p>{active.human}</p></div></div><div className="panel-footer"><div><small>POSSIBLE SUCCESS MEASURE</small><strong>{active.measure}</strong></div><div><small>FIRST FEASIBILITY QUESTION</small><strong>{active.question}</strong></div></div></div>
       </div>
     </div></section>
 
