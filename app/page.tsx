@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowDown, ArrowRight, ArrowUpRight, Boxes, Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, MessageSquareText, ShieldCheck, Users, Wrench } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Boxes, Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, MessageSquareText, ShieldCheck, Users, Wrench } from "lucide-react";
 
 const linkedinProfile = "https://www.linkedin.com/in/jeetendra-yadav-4363457a/";
 const linkedinCompany = "https://www.linkedin.com/company/xplormate/";
@@ -81,7 +81,6 @@ export default function Home() {
       <div className="hero-content shell">
         <div className="hero-kicker"><span className="signal-pulse" /> AI TRANSFORMATION FOR MANUFACTURING OPERATIONS</div>
         <h1>Your systems record<br />the work. <em>AI can help<br />move it forward.</em></h1>
-        <div className="hero-actions"><p>Transform the follow-ups, handovers, decisions, and exception handling around your manufacturing operation.</p><div className="button-row"><a className="button button-amber" href="#contact">Explore your first AI transformation opportunity <ArrowUpRight size={20} /></a><a className="button button-ghost" href="#signal-story">See how it could work <ArrowDown size={18} /></a></div></div>
         <div className="hero-meta"><span>PRODUCTION / QUALITY / MAINTENANCE / MATERIALS</span><span className="system-status"><i /> OPERATIONAL SIGNALS IN MOTION</span></div>
       </div>
     </section>
