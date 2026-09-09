@@ -70,7 +70,7 @@ export default function Home() {
 
   return <main id="top">
     <header className="site-header"><div className="header-inner">
-      <a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>xplormate<span className="brand-dot">.</span></span></a>
+      <a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a>
       <nav aria-label="Main navigation"><a href="#possibilities">Possibilities</a><a href="#approach">Approach</a><a href="#questions">Questions</a></nav>
       <a className="header-cta" href="#contact">Start a conversation <ArrowUpRight size={17} /></a>
     </div></header>
@@ -133,6 +133,6 @@ export default function Home() {
 
     <section className="contact section-dark" id="contact"><div className="contact-glow" aria-hidden="true" /><div className="shell contact-grid"><div><div className="section-topline"><span>09 / START THE CONVERSATION</span></div><h2>What does your team <em>keep chasing?</em></h2></div><div className="contact-content"><p>Start with one recurring bottleneck: an update that takes too long, an issue that loses ownership, or a decision that waits for missing context.</p><a className="button button-amber" href={linkedinProfile} target="_blank" rel="noopener noreferrer">Explore your first AI transformation opportunity <ArrowUpRight size={20} /></a><small>Connect or message on LinkedIn. Mention the workflow you want to improve.</small><blockquote><span>A SIMPLE WAY TO START</span>“We spend a lot of time following up on ____. Today, it moves through ____. I’d like to explore whether there is a better way.”</blockquote></div></div></section>
 
-    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>xplormate<span className="brand-dot">.</span></span></a><p>AI transformation for manufacturing operations.</p><a href={linkedinCompany} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></footer>
+    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a><p>AI transformation for manufacturing operations.</p><a href={linkedinCompany} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></footer>
   </main>;
 }
