@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Boxes, Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, MessageSquareText, ShieldCheck, Users, Wrench } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Boxes, Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, Menu, MessageSquareText, ShieldCheck, Users, Wrench, X } from "lucide-react";
 
 const linkedinProfile = "https://www.linkedin.com/in/jeetendra-yadav-4363457a/";
-const linkedinCompany = "https://www.linkedin.com/company/xplormate/";
 
 const problems = [
   { number: "01", icon: Clock3, title: "Production follow-ups", question: "What changed, who owns the response, and what happens next?", copy: "Updates move through plans, spreadsheets, meetings, and messages. Managers repeatedly rebuild the operating picture before anyone can act.", signal: "Order status changed", measure: "Time spent chasing status" },
@@ -42,17 +41,42 @@ const faq = [
 export default function Home() {
   const [activeOpportunity, setActiveOpportunity] = useState(0);
   const [leadSubmitted, setLeadSubmitted] = useState(false);
+  const [leadSubmitting, setLeadSubmitting] = useState(false);
+  const [leadError, setLeadError] = useState("");
+  const [leadFieldErrors, setLeadFieldErrors] = useState<Record<string, string>>({});
+  const [navOpen, setNavOpen] = useState(false);
   const active = opportunities[activeOpportunity];
 
-  const handleLeadSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLeadSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const values = Object.fromEntries(new FormData(event.currentTarget).entries());
-    const draft = `Hi Jeetendra, I’m ${values.name} from ${values.company}. I lead ${values.role}. I’d like to explore an AI transformation opportunity in our manufacturing operation. My email is ${values.email}.`;
 
-    if (typeof navigator !== "undefined" && navigator.clipboard) {
-      void navigator.clipboard.writeText(draft);
+    const form = event.currentTarget;
+    const values = Object.fromEntries(new FormData(form).entries());
+    setLeadSubmitting(true);
+    setLeadError("");
+    setLeadFieldErrors({});
+
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const payload = await response.json() as { message?: string; fields?: Record<string, string>; lead?: { name: string; email: string; company: string; role: string } };
+
+      if (!response.ok || !payload.lead) {
+        setLeadError(payload.message ?? "Please check the required details.");
+        setLeadFieldErrors(payload.fields ?? {});
+        return;
+      }
+
+      setLeadSubmitted(true);
+      form.reset();
+    } catch {
+      setLeadError("We could not check those details right now. Please try again.");
+    } finally {
+      setLeadSubmitting(false);
     }
-    setLeadSubmitted(true);
   };
 
   const selectOpportunityFromKeyboard = (
@@ -83,8 +107,9 @@ export default function Home() {
   return <main id="top">
     <header className="site-header"><div className="header-inner">
       <a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a>
-      <nav aria-label="Main navigation"><a href="#possibilities">Possibilities</a><a href="#approach">Approach</a><a href="#questions">Questions</a></nav>
-      <a className="header-cta" href="#contact">Start a conversation <ArrowUpRight size={17} /></a>
+      <button className="mobile-nav-toggle" type="button" aria-label={navOpen ? "Close navigation" : "Open navigation"} aria-expanded={navOpen} aria-controls="site-navigation" onClick={() => setNavOpen((open) => !open)}>{navOpen ? <X size={18} /> : <Menu size={18} />}</button>
+      <nav className={`site-nav${navOpen ? " is-open" : ""}`} id="site-navigation" aria-label="Main navigation"><a href="#explorer" onClick={() => setNavOpen(false)}>Explore</a><a href="#approach" onClick={() => setNavOpen(false)}>How it works</a><a href="#questions" onClick={() => setNavOpen(false)}>FAQ</a></nav>
+      <a className="header-cta" href="#contact" onClick={() => setNavOpen(false)}>Start a conversation <ArrowUpRight size={17} /></a>
     </div></header>
 
     <section className="hero">
@@ -93,6 +118,10 @@ export default function Home() {
       <div className="hero-content shell">
         <div className="hero-kicker"><span className="signal-pulse" /> AI TRANSFORMATION FOR MANUFACTURING OPERATIONS</div>
         <h1>Your systems record<br />the work. <em>AI can help<br />move it forward.</em></h1>
+        <div className="hero-actions">
+          <p>Find one manufacturing bottleneck where AI can make the next action clearer, faster, and easier to control.</p>
+          <a className="button button-amber" href="#explorer">Explore opportunities <ArrowRight size={19} /></a>
+        </div>
         <div className="hero-meta"><span>PRODUCTION / QUALITY / MAINTENANCE / MATERIALS</span><span className="system-status"><i /> OPERATIONAL SIGNALS IN MOTION</span></div>
       </div>
     </section>
@@ -143,8 +172,55 @@ export default function Home() {
 
     <section className="faq section-ivory" id="questions"><div className="shell faq-grid"><div className="faq-intro"><div className="section-topline dark"><span>08 / PRACTICAL QUESTIONS</span></div><h2>Before we talk.</h2><p>Clear expectations make the first conversation more useful.</p></div><div className="faq-items">{faq.map(([question, answer]) => <details key={question}><summary>{question}<ChevronDown size={20} /></summary><p>{answer}</p></details>)}</div></div></section>
 
-    <section className="contact section-dark" id="contact"><div className="contact-glow" aria-hidden="true" /><div className="shell contact-grid"><div><div className="section-topline"><span>09 / START THE CONVERSATION</span></div><h2>What does your team <em>keep chasing?</em></h2></div><div className="contact-content"><p>Share four details and we’ll turn them into a focused LinkedIn conversation.</p>{!leadSubmitted ? <form className="lead-form" onSubmit={handleLeadSubmit}><div className="lead-form-grid"><label htmlFor="lead-name"><span>Name</span><input id="lead-name" name="name" type="text" autoComplete="name" required /></label><label htmlFor="lead-email"><span>Email</span><input id="lead-email" name="email" type="email" autoComplete="email" required /></label><label htmlFor="lead-company"><span>Company</span><input id="lead-company" name="company" type="text" autoComplete="organization" required /></label><label htmlFor="lead-role"><span>Role</span><input id="lead-role" name="role" type="text" autoComplete="organization-title" required /></label></div><button className="button button-amber" type="submit">Explore your first AI transformation opportunity <ArrowUpRight size={20} /></button><small className="form-note">Your details stay in this draft until you choose to send it on LinkedIn.</small></form> : <div className="lead-success"><p>Your LinkedIn note is ready. Open LinkedIn and paste it into the conversation.</p><a className="button button-amber" href={linkedinProfile} target="_blank" rel="noopener noreferrer">Open LinkedIn <ArrowUpRight size={20} /></a><button className="text-button" type="button" onClick={() => setLeadSubmitted(false)}>Edit details</button></div>}<a className="linkedin-fallback" href={linkedinProfile} target="_blank" rel="noopener noreferrer">Prefer to start directly on LinkedIn? <span>Open your profile <ArrowUpRight size={15} /></span></a><blockquote><span>A SIMPLE WAY TO START</span>“We spend a lot of time following up on ____. Today, it moves through ____. I’d like to explore whether there is a better way.”</blockquote></div></div></section>
+    <section className="contact section-dark" id="contact">
+      <div className="contact-glow" aria-hidden="true" />
+      <div className="shell contact-grid">
+        <div>
+          <div className="section-topline"><span>09 / START THE CONVERSATION</span></div>
+          <h2>What does your team <em>keep chasing?</em></h2>
+        </div>
+        <div className="contact-content">
+          <p>Share your details. We’ll review them and contact you directly. <strong>All fields are required.</strong></p>
+          {!leadSubmitted ? (
+            <form className="lead-form" onSubmit={handleLeadSubmit}>
+              <div className="lead-form-grid">
+                <label className={leadFieldErrors.name ? "has-error" : undefined} htmlFor="lead-name">
+                  <span>Name <i className="required-mark" aria-hidden="true">*</i></span>
+                  <input id="lead-name" name="name" type="text" autoComplete="name" required aria-required="true" maxLength={120} aria-invalid={Boolean(leadFieldErrors.name)} aria-describedby={leadFieldErrors.name ? "lead-name-error" : undefined} />
+                  {leadFieldErrors.name ? <small className="field-error" id="lead-name-error">{leadFieldErrors.name}</small> : null}
+                </label>
+                <label className={leadFieldErrors.email ? "has-error" : undefined} htmlFor="lead-email">
+                  <span>Email <i className="required-mark" aria-hidden="true">*</i></span>
+                  <input id="lead-email" name="email" type="email" autoComplete="email" required aria-required="true" maxLength={254} aria-invalid={Boolean(leadFieldErrors.email)} aria-describedby={leadFieldErrors.email ? "lead-email-error" : undefined} />
+                  {leadFieldErrors.email ? <small className="field-error" id="lead-email-error">{leadFieldErrors.email}</small> : null}
+                </label>
+                <label className={leadFieldErrors.company ? "has-error" : undefined} htmlFor="lead-company">
+                  <span>Company <i className="required-mark" aria-hidden="true">*</i></span>
+                  <input id="lead-company" name="company" type="text" autoComplete="organization" required aria-required="true" maxLength={160} aria-invalid={Boolean(leadFieldErrors.company)} aria-describedby={leadFieldErrors.company ? "lead-company-error" : undefined} />
+                  {leadFieldErrors.company ? <small className="field-error" id="lead-company-error">{leadFieldErrors.company}</small> : null}
+                </label>
+                <label className={leadFieldErrors.role ? "has-error" : undefined} htmlFor="lead-role">
+                  <span>Role <i className="required-mark" aria-hidden="true">*</i></span>
+                  <input id="lead-role" name="role" type="text" autoComplete="organization-title" required aria-required="true" maxLength={120} aria-invalid={Boolean(leadFieldErrors.role)} aria-describedby={leadFieldErrors.role ? "lead-role-error" : undefined} />
+                  {leadFieldErrors.role ? <small className="field-error" id="lead-role-error">{leadFieldErrors.role}</small> : null}
+                </label>
+              </div>
+              {leadError ? <p className="form-error" role="alert" aria-live="polite">{leadError}</p> : null}
+              <button className="button button-amber" type="submit" disabled={leadSubmitting} aria-busy={leadSubmitting}>
+                {leadSubmitting ? "Checking details" : "Start a conversation"} <ArrowUpRight size={20} />
+              </button>
+              <small className="form-note">All four details are required. We’ll review them and contact you directly.</small>
+            </form>
+          ) : (
+            <div className="lead-success" aria-live="polite">
+              <p>Thanks. We’ve received your details. We’ll review them and contact you directly.</p>
+              <button className="text-button" type="button" onClick={() => { setLeadSubmitted(false); setLeadError(""); setLeadFieldErrors({}); }}>Submit another response</button>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
 
-    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a><p>AI transformation for manufacturing operations.</p><a href={linkedinCompany} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></footer>
+    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a><p>AI transformation for manufacturing operations.</p><a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></footer>
   </main>;
 }
