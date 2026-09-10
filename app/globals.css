@@ -26,6 +26,10 @@
 @media(max-width:760px){.signal-visual,.signal-overlay{min-height:0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-image,.signal-pulse,.panel-orbit{animation:none}.button{transition:none}}
 
+.footer-links{display:inline-flex;align-items:center;justify-self:end;gap:22px;font-size:13px}
+.footer-links a{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+@media(max-width:760px){.footer-links{justify-self:start;gap:18px}}
+
 .problem-cards{align-items:stretch}
 .problem-card,.problem-card.offset-1,.problem-card.offset-2,.problem-card.offset-3{height:100%;margin-top:0;display:grid;grid-template-rows:auto auto minmax(60px,auto) minmax(104px,auto) 1fr auto;align-items:start}
 .problem-card>small{margin-top:40px}
