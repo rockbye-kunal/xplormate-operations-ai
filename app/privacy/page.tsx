@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Xplormate",
-  description: "How Xplormate handles contact details and anonymous website analytics.",
+  description: "How Xplormate handles enquiry details, aggregate analytics, and privacy requests.",
 };
 
 const linkedinProfile = "https://www.linkedin.com/in/jeetendra-yadav-4363457a/";
@@ -24,17 +24,17 @@ export default function PrivacyPolicyPage() {
       <article className="legal-shell legal-content">
         <p className="legal-kicker">POLICY / LAST UPDATED 10 SEPTEMBER 2026</p>
         <h1>Privacy Policy</h1>
-        <p className="legal-lede">This policy explains what Xplormate collects through this website and how we use it.</p>
+        <p className="legal-lede">This policy explains what Xplormate collects through this website, why we use it, and the choices available to you.</p>
 
         <section>
           <h2>Information you provide</h2>
-          <p>When you start a conversation, we collect your name, email address, company, and role. These fields are required so we can understand who is reaching out and respond to the enquiry.</p>
+          <p>When you submit the contact form, we collect your name, email address, company, and role. These fields are required so we can understand who is reaching out and respond to the enquiry.</p>
         </section>
 
         <section>
-          <h2>Website analytics</h2>
-          <p>We use Vercel Web Analytics to understand aggregate website activity, such as page views, referrers, approximate country, browser, device, and operating system. Vercel’s analytics are designed to use anonymised data and do not use cookies to identify you across websites or days.</p>
-          <p>Analytics cannot tell us your name or LinkedIn identity. If you submit the form, the details you provide are stored separately as an inbound enquiry.</p>
+          <h2>Information collected automatically</h2>
+          <p>The website may collect basic technical and aggregate usage information, such as pages viewed, referring source, approximate location, browser, device, and operating system. We use privacy-focused analytics to understand how the site is used and improve it.</p>
+          <p>Our current analytics do not use advertising cookies or cross-site identifiers to identify you. Analytics are kept separate from the contact details you submit.</p>
         </section>
 
         <section>
@@ -43,18 +43,30 @@ export default function PrivacyPolicyPage() {
             <li>To review and respond to an enquiry.</li>
             <li>To understand which parts of the site are useful and improve the experience.</li>
             <li>To protect, maintain, and troubleshoot the website.</li>
+            <li>To meet legal, security, or fraud-prevention requirements when necessary.</li>
           </ul>
         </section>
 
         <section>
-          <h2>Storage and service providers</h2>
-          <p>Form submissions are stored in a Supabase database connected to the Xplormate Vercel project. The database is accessed by the website server; database credentials are not exposed to visitors. Vercel hosts the website and analytics, and Supabase provides the database infrastructure.</p>
-          <p>We do not sell the personal information submitted through this form.</p>
+          <h2>Sharing and service providers</h2>
+          <p>We use trusted service providers for website hosting, secure database storage, aggregate analytics, and basic security. They process information only as needed to provide services for Xplormate. Form submissions are kept separate from anonymous website analytics.</p>
+          <p>We may share information when required by law, to protect the website and its users, or to respond to a valid legal request. We do not sell or rent the personal information submitted through this form.</p>
         </section>
 
         <section>
-          <h2>Retention and requests</h2>
-          <p>We keep enquiry details while they are useful for reviewing and managing the conversation. To ask about, correct, or request deletion of your submitted details, contact Jeetendra through <a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn</a>.</p>
+          <h2>Storage and retention</h2>
+          <p>Form submissions are stored in a hosted database that the website server and authorised Xplormate administrators can access. We keep enquiry details while they are useful for reviewing and managing the conversation, then delete or anonymise them when they are no longer needed.</p>
+        </section>
+
+        <section>
+          <h2>Security and international processing</h2>
+          <p>We use reasonable technical and organisational safeguards to protect the information we hold. No online service or transmission can be guaranteed completely secure.</p>
+          <p>Our service providers may process or store information in countries where they or their infrastructure operate. We take reasonable steps to use providers with appropriate security and privacy safeguards.</p>
+        </section>
+
+        <section>
+          <h2>Your requests</h2>
+          <p>You may ask us to explain, correct, or delete the personal information you submitted through the form. Contact Jeetendra through <a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn</a>. We may need to verify a request before acting on it.</p>
         </section>
 
         <section>
