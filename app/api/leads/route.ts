@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
 const leadSchema = z.object({
@@ -7,6 +8,22 @@ const leadSchema = z.object({
   company: z.string().trim().min(2, "Enter your company.").max(160, "Company is too long."),
   role: z.string().trim().min(2, "Enter your role.").max(120, "Role is too long."),
 });
+
+function getSupabaseAdmin() {
+  const supabaseUrl = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServerKey = process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !supabaseServerKey) {
+    throw new Error("Supabase server credentials are not configured.");
+  }
+
+  return createClient(supabaseUrl, supabaseServerKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
+}
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -40,5 +57,27 @@ export async function POST(request: Request) {
     );
   }
 
-  return NextResponse.json({ ok: true, lead: result.data });
+  try {
+    const supabase = getSupabaseAdmin();
+    const { error } = await supabase.from("leads").insert({
+      ...result.data,
+      source: "website",
+    });
+
+    if (error) {
+      console.error("Lead storage failed", { code: error.code, message: error.message });
+      return NextResponse.json(
+        { ok: false, message: "We could not save your details. Please try again." },
+        { status: 503 },
+      );
+    }
+  } catch (error) {
+    console.error("Lead storage is unavailable", error instanceof Error ? error.message : "Unknown error");
+    return NextResponse.json(
+      { ok: false, message: "We could not save your details. Please try again." },
+      { status: 503 },
+    );
+  }
+
+  return NextResponse.json({ ok: true, lead: result.data }, { status: 201 });
 }
