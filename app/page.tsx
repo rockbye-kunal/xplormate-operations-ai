@@ -221,6 +221,6 @@ export default function Home() {
       </div>
     </section>
 
-    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a><p>AI transformation for manufacturing operations.</p><a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></footer>
+    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a><p>AI transformation for manufacturing operations.</p><div className="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></div></footer>
   </main>;
 }

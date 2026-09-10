@@ -55,3 +55,25 @@
 .lead-success>p{font-size:17px;line-height:1.6;color:#d6ddd5;margin:0}
 .text-button{justify-self:start;border:0;border-bottom:1px solid #69766d;background:transparent;color:#b5beb6;padding:0 0 6px;cursor:pointer;font-size:13px}
 @media(max-width:760px){.lead-form-grid{grid-template-columns:1fr}.lead-form{margin-top:20px}.lead-form input{min-height:50px}}
+
+.legal-page{min-height:100vh;background:var(--ivory);color:var(--dark)}
+.legal-header{background:var(--graphite);color:var(--ink);border-bottom:1px solid rgba(255,255,255,.2)}
+.legal-shell{width:min(1040px,calc(100% - 112px));margin-inline:auto}
+.legal-header-inner{min-height:92px;display:flex;align-items:center;justify-content:space-between;gap:30px}
+.legal-back{font-size:13px;color:#cbd1ca;display:inline-flex;align-items:center;gap:10px}
+.legal-back:hover{color:var(--amber)}
+.legal-content{padding:110px 0 125px}
+.legal-kicker{font:10px/1.5 "Courier New",monospace;letter-spacing:1.2px;color:#68746b;margin:0 0 26px}
+.legal-content h1{font-size:clamp(56px,7vw,96px);line-height:.98;letter-spacing:-.07em;font-weight:500;margin:0 0 24px}
+.legal-lede{font-size:22px;line-height:1.5;color:#566259;max-width:650px;margin:0 0 78px}
+.legal-content section{border-top:1px solid rgba(24,32,28,.22);padding:29px 0 34px;display:grid;grid-template-columns:.7fr 1.3fr;gap:50px}
+.legal-content section h2{font-size:25px;line-height:1.15;letter-spacing:-.04em;font-weight:500;margin:0}
+.legal-content section p,.legal-content section ul{font-size:16px;line-height:1.75;color:#566259;max-width:650px;margin:0}
+.legal-content section p+p{margin-top:16px}
+.legal-content section ul{padding-left:20px}
+.legal-content section li+li{margin-top:8px}
+.legal-content section a{color:#1a5e49;text-decoration:underline;text-decoration-color:rgba(26,94,73,.35);text-underline-offset:3px}
+.legal-footer{background:var(--graphite);color:#9ba39c;border-top:1px solid rgba(255,255,255,.18);padding:27px 0 32px;font-size:12px}
+.legal-footer .legal-shell{display:flex;justify-content:space-between;gap:25px}
+.legal-footer a{color:var(--ink);font-weight:650}
+@media(max-width:760px){.legal-shell{width:calc(100% - 38px)}.legal-header-inner{min-height:76px}.legal-content{padding:76px 0 85px}.legal-content h1{font-size:54px}.legal-lede{font-size:19px;margin-bottom:55px}.legal-content section{grid-template-columns:1fr;gap:14px;padding:24px 0 28px}.legal-content section h2{font-size:23px}.legal-content section p,.legal-content section ul{font-size:15px}.legal-footer .legal-shell{flex-direction:column;gap:12px}}
