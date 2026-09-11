@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Boxes, Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, MapPin, Menu, MessageSquareText, ShieldCheck, Users, Wrench, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Boxes, Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, Mail, MapPin, Menu, MessageSquareText, ShieldCheck, Users, Wrench, X } from "lucide-react";
 
 const linkedinProfile = "https://www.linkedin.com/in/jeetendra-yadav-4363457a/";
+const businessEmail = "jeetendra@xplormate.com";
 
 const problems = [
   { number: "01", icon: Clock3, title: "Production follow-ups", question: "What changed, who owns the response, and what happens next?", copy: "Updates move through plans, spreadsheets, meetings, and messages. Managers repeatedly rebuild the operating picture before anyone can act.", signal: "Order status changed", measure: "Time spent chasing status" },
@@ -181,6 +182,7 @@ export default function Home() {
         </div>
         <div className="contact-content">
           <p>Share your details. We’ll review them and contact you directly. <strong>All fields are required.</strong></p>
+          <a className="contact-email" href={`mailto:${businessEmail}`}>Prefer email? {businessEmail} <ArrowUpRight size={17} /></a>
           {!leadSubmitted ? (
             <form className="lead-form" onSubmit={handleLeadSubmit}>
               <div className="lead-form-grid">
@@ -221,6 +223,6 @@ export default function Home() {
       </div>
     </section>
 
-    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a><p>AI transformation for manufacturing operations.</p><address className="footer-address"><MapPin size={15} strokeWidth={1.5} /><span>BTM, 2nd Stage,<br />Bengaluru, 560076</span></address><div className="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></div></footer>
+    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a><p>AI transformation for manufacturing operations.</p><address className="footer-address"><MapPin size={15} strokeWidth={1.5} /><span>BTM, 2nd Stage,<br />Bengaluru, 560076</span></address><div className="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href={`mailto:${businessEmail}`}><Mail size={15} /> Email</a><a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></div></footer>
   </main>;
 }

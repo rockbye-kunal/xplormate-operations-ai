@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Terms for using the Xplormate website and submitting an enquiry.",
 };
 
-const linkedinProfile = "https://www.linkedin.com/in/jeetendra-yadav-4363457a/";
+const businessEmail = "jeetendra@xplormate.com";
 
 export default function TermsPage() {
   return (
@@ -59,7 +59,7 @@ export default function TermsPage() {
 
         <section>
           <h2>Contact</h2>
-          <p>Questions about these terms can be sent to Jeetendra through <a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn</a>.</p>
+          <p>Questions about these terms can be sent to <a href={`mailto:${businessEmail}`}>{businessEmail}</a>.</p>
         </section>
       </article>
 

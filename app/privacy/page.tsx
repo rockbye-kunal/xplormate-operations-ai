@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "How Xplormate handles enquiry details, aggregate analytics, and privacy requests.",
 };
 
-const linkedinProfile = "https://www.linkedin.com/in/jeetendra-yadav-4363457a/";
+const businessEmail = "jeetendra@xplormate.com";
 
 export default function PrivacyPolicyPage() {
   return (
@@ -66,7 +66,7 @@ export default function PrivacyPolicyPage() {
 
         <section>
           <h2>Your requests</h2>
-          <p>You may ask us to explain, correct, or delete the personal information you submitted through the form. Contact Jeetendra through <a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn</a>. We may need to verify a request before acting on it.</p>
+          <p>You may ask us to explain, correct, or delete the personal information you submitted through the form. Contact Jeetendra at <a href={`mailto:${businessEmail}`}>{businessEmail}</a>. We may need to verify a request before acting on it.</p>
         </section>
 
         <section>

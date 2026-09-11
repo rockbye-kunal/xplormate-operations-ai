@@ -35,6 +35,9 @@
 .footer-address svg{flex:none;color:var(--amber);margin-top:2px}
 @media(max-width:760px){.footer-grid{grid-template-columns:1fr}.footer-address{justify-self:start}}
 
+.contact-email{display:inline-flex;align-items:center;gap:10px;width:max-content;max-width:100%;margin:0 0 32px;border-bottom:1px solid rgba(255,255,255,.42);padding-bottom:8px;color:var(--ink);font-size:15px;line-height:1.5;transition:color .2s,border-color .2s}.contact-email:hover{color:var(--amber);border-color:var(--amber)}.contact-email svg{flex:none;color:var(--amber)}
+@media(max-width:760px){.contact-email{font-size:14px;margin-bottom:26px}}
+
 .problem-cards{align-items:stretch}
 .problem-card,.problem-card.offset-1,.problem-card.offset-2,.problem-card.offset-3{height:100%;margin-top:0;display:grid;grid-template-rows:auto auto minmax(60px,auto) minmax(104px,auto) 1fr auto;align-items:start}
 .problem-card>small{margin-top:40px}
