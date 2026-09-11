@@ -181,10 +181,6 @@ export default function Home() {
         </div>
         <div className="contact-content">
           <p>Share your details. We’ll review them and contact you directly. <strong>All fields are required.</strong></p>
-          <address className="contact-location">
-            <MapPin size={19} strokeWidth={1.5} />
-            <span><small>LOCATION</small>BTM, 2nd Stage,<br />Bengaluru, 560076</span>
-          </address>
           {!leadSubmitted ? (
             <form className="lead-form" onSubmit={handleLeadSubmit}>
               <div className="lead-form-grid">
