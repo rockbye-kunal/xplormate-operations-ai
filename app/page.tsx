@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Boxes, Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, Menu, MessageSquareText, ShieldCheck, Users, Wrench, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Boxes, Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, MapPin, Menu, MessageSquareText, ShieldCheck, Users, Wrench, X } from "lucide-react";
 
 const linkedinProfile = "https://www.linkedin.com/in/jeetendra-yadav-4363457a/";
 
@@ -181,6 +181,10 @@ export default function Home() {
         </div>
         <div className="contact-content">
           <p>Share your details. We’ll review them and contact you directly. <strong>All fields are required.</strong></p>
+          <address className="contact-location">
+            <MapPin size={19} strokeWidth={1.5} />
+            <span><small>LOCATION</small>BTM 2nd Stage<br />Bengaluru, 560076</span>
+          </address>
           {!leadSubmitted ? (
             <form className="lead-form" onSubmit={handleLeadSubmit}>
               <div className="lead-form-grid">
@@ -221,6 +225,6 @@ export default function Home() {
       </div>
     </section>
 
-    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a><p>AI transformation for manufacturing operations.</p><div className="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></div></footer>
+    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a><p>AI transformation for manufacturing operations.</p><address className="footer-address"><MapPin size={15} strokeWidth={1.5} /><span>BTM 2nd Stage<br />Bengaluru, 560076</span></address><div className="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></div></footer>
   </main>;
 }
