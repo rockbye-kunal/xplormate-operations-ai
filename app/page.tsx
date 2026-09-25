@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Boxes, Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, Mail, MapPin, Menu, MessageSquareText, ShieldCheck, Users, Wrench, X } from "lucide-react";
+import { track } from "@vercel/analytics";
+import { ArrowRight, ArrowUpRight, Boxes,  Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, Mail, MapPin, Menu, MessageSquareText, ShieldCheck, Users, Wrench, X } from "lucide-react";
 
 const linkedinProfile = "https://www.linkedin.com/in/jeetendra-yadav-4363457a/";
 const businessEmail = "jeetendra@xplormate.com";
@@ -23,11 +24,11 @@ const opportunities = [
 ];
 
 const stages = [
-  { number: "01", title: "Signal", copy: "A material shortage is reported before the next shift.", icon: CircleAlert },
-  { number: "02", title: "Context", copy: "Affected orders, timing, messages, and available stock are connected.", icon: Database },
-  { number: "03", title: "Owner", copy: "The right buyer and planner receive a clear, shared operating picture.", icon: Users },
-  { number: "04", title: "Action", copy: "AI prepares the follow-up and surfaces exceptions for review.", icon: MessageSquareText },
-  { number: "05", title: "Closure", copy: "A person confirms the response, updates the plan, and closes the loop.", icon: Check },
+  { number: "01", title: "Something happens", copy: "A material shortage is reported before the next shift.", icon: CircleAlert },
+  { number: "02", title: "Facts pulled together", copy: "The affected orders, timing, messages, and stock on hand are gathered in one place.", icon: Database },
+  { number: "03", title: "Right people told", copy: "The buyer and planner see the same clear picture at the same time.", icon: Users },
+  { number: "04", title: "Follow-up drafted", copy: "AI drafts the follow-up and flags anything unusual for a person to check.", icon: MessageSquareText },
+  { number: "05", title: "Closed properly", copy: "A person confirms the response, updates the plan, and marks it done.", icon: Check },
 ];
 
 const faq = [
@@ -36,7 +37,8 @@ const faq = [
   ["What if information is spread across different systems?", "That is common and part of the workflow assessment. We map where the information lives, who owns it, when it becomes available, and what can be accessed safely before suggesting an intervention."],
   ["Will AI make operational decisions independently?", "The level of autonomy depends on the task and its consequences. The workflow should explicitly define permissions, human approvals, exception handling, escalation rules, and a review trail."],
   ["How should we select the first opportunity?", "Choose a recurring task with visible coordination effort, a clear owner, accessible information, and an outcome that can be measured. A narrow workflow creates a better starting point than a broad transformation programme."],
-  ["What happens after the first conversation?", "We map one recent example, identify where work slowed down, and assess whether AI is appropriate. If the opportunity is credible, the next step is a bounded workflow definition with controls and a success measure."],
+  ["Why work with an early company?", "You work directly with the people building Xplormate, not a sales team. The first engagement is a small paid pilot on one workflow, judged by a measure you choose, so you can see real results before committing to anything bigger."],
+  ["What happens after the first conversation?", "We walk through one recent example together and see where the work slowed down. If AI can genuinely help, we agree a small paid pilot on that one workflow, with your own number as the measure of success. If it can’t, we’ll tell you."],
 ];
 
 export default function Home() {
@@ -72,6 +74,7 @@ export default function Home() {
       }
 
       setLeadSubmitted(true);
+      track("lead_submitted");
       form.reset();
     } catch {
       setLeadError("We could not check those details right now. Please try again.");
@@ -109,80 +112,72 @@ export default function Home() {
     <header className="site-header"><div className="header-inner">
       <a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a>
       <button className="mobile-nav-toggle" type="button" aria-label={navOpen ? "Close navigation" : "Open navigation"} aria-expanded={navOpen} aria-controls="site-navigation" onClick={() => setNavOpen((open) => !open)}>{navOpen ? <X size={18} /> : <Menu size={18} />}</button>
-      <nav className={`site-nav${navOpen ? " is-open" : ""}`} id="site-navigation" aria-label="Main navigation"><a href="#explorer" onClick={() => setNavOpen(false)}>Explore</a><a href="#approach" onClick={() => setNavOpen(false)}>How it works</a><a href="#questions" onClick={() => setNavOpen(false)}>FAQ</a></nav>
-      <a className="header-cta" href="#contact" onClick={() => setNavOpen(false)}>Start a conversation <ArrowUpRight size={17} /></a>
+      <nav className={`site-nav${navOpen ? " is-open" : ""}`} id="site-navigation" aria-label="Main navigation"><a href="#explorer" onClick={() => setNavOpen(false)}>Where AI fits</a><a href="#approach" onClick={() => setNavOpen(false)}>How a pilot works</a><a href="#questions" onClick={() => setNavOpen(false)}>FAQ</a></nav>
+      <a className="header-cta" href="#contact" onClick={() => setNavOpen(false)}>Talk to us <ArrowUpRight size={17} /></a>
     </div></header>
 
     <section className="hero">
       <img className="hero-image" src="/xplormate-hero.png" alt="Modern manufacturing floor during an active shift" />
       <div className="hero-shade" /><div className="hero-grid" aria-hidden="true" />
       <div className="hero-content shell">
-        <div className="hero-kicker"><span className="signal-pulse" /> AI TRANSFORMATION FOR MANUFACTURING OPERATIONS</div>
-        <h1>Your systems record<br />the work. <em>AI can help<br />move it forward.</em></h1>
+        <div className="hero-kicker"><span className="signal-pulse" /> FOR PLANT HEADS, MDs AND OPERATIONS LEADERS</div>
+        <h1>Your team shouldn’t spend<br />the day <em>chasing updates.</em></h1>
         <div className="hero-actions">
-          <p>Find one manufacturing bottleneck where AI can make the next action clearer, faster, and easier to control.</p>
-          <a className="button button-amber" href="#explorer">Explore opportunities <ArrowRight size={19} /></a>
+          <p>Order status, material shortages, quality issues, shift handovers. We pick one workflow your team keeps chasing and use AI to move it forward. Your ERP and spreadsheets stay as they are.</p>
+          <div className="hero-buttons"><a className="button button-amber" href="#contact">Talk about one bottleneck <ArrowRight size={19} /></a><a className="button button-ghost" href="#explorer">See where AI fits</a></div>
         </div>
-        <div className="hero-meta"><span>PRODUCTION / QUALITY / MAINTENANCE / MATERIALS</span><span className="system-status"><i /> OPERATIONAL SIGNALS IN MOTION</span></div>
+        <div className="hero-meta"><span>PRODUCTION / QUALITY / MAINTENANCE / MATERIALS</span><span className="system-status"><i /> WORKS ALONGSIDE YOUR ERP, EXCEL AND WHATSAPP</span></div>
       </div>
     </section>
 
     <section className="signal-story section-dark" id="signal-story"><div className="shell">
       <div className="section-topline"><span>01 / THE OPERATING LOOP</span><span>ILLUSTRATIVE WORKFLOW</span></div>
-      <div className="section-heading split-heading"><h2>An update should lead<br />to something happening.</h2><p>Visibility is the beginning. The useful question is what happens next, who owns it, and how the operation knows it is complete.</p></div>
+      <div className="section-heading split-heading"><h2>An update should lead<br />to something happening.</h2><p>Knowing about a problem is only the start. What matters is what happens next, who owns it, and how everyone knows it’s done.</p></div>
       <div className="signal-visual"><img src="/operational-signal.png" alt="Close-up of industrial machinery and an active sensor" /><div className="signal-overlay">
-        <div className="signal-alert"><span className="alert-icon">!</span><div><small>NEW OPERATIONAL SIGNAL</small><strong>Material shortage before next shift</strong></div><span className="signal-time">14:32</span></div>
+        <div className="signal-alert"><span className="alert-icon">!</span><div><small>NEW ISSUE</small><strong>Material shortage before next shift</strong></div><span className="signal-time">14:32</span></div>
         <div className="signal-trace" aria-hidden="true"><span /><span /><span /><span /><span /></div>
         <div className="stage-grid">{stages.map((stage) => { const Icon = stage.icon; return <article key={stage.title} className="stage-card"><div className="stage-head"><span>{stage.number}</span><Icon size={20} strokeWidth={1.5} /></div><h3>{stage.title}</h3><p>{stage.copy}</p></article>; })}</div>
       </div></div>
-      <div className="control-note"><ShieldCheck size={21} /><p>People approve consequential decisions. Every workflow should define what AI may do, when it escalates, and who signs off.</p></div>
+      <div className="control-note"><ShieldCheck size={21} /><p>People approve every important decision. For each workflow we agree up front what AI may do, when it asks a person, and who signs off.</p></div>
     </div></section>
 
     <section className="problem-section" id="possibilities"><div className="problem-backdrop"><img src="/human-oversight.png" alt="Manufacturing professional reviewing operations from a control room" /></div><div className="shell problem-content">
-      <div className="section-topline light"><span>02 / WHERE WORK SLOWS DOWN</span><span>RECOGNISE THE PATTERN</span></div>
+      <div className="section-topline light"><span>02 / WHERE WORK SLOWS DOWN</span><span>SOUND FAMILIAR?</span></div>
       <div className="section-heading wide-heading"><h2>The factory rarely slows because information is completely missing.</h2><p>It slows because the next action is unclear.</p></div>
-      <div className="problem-cards">{problems.map((item, index) => { const Icon = item.icon; return <article className={`problem-card offset-${index}`} key={item.title}><div className="problem-card-top"><span>{item.number}</span><Icon size={23} strokeWidth={1.35} /></div><small>{item.signal}</small><h3>{item.title}</h3><blockquote>“{item.question}”</blockquote><p>{item.copy}</p><div className="measure"><span>POSSIBLE MEASURE</span>{item.measure}</div></article>; })}</div>
+      <div className="problem-cards">{problems.map((item, index) => { const Icon = item.icon; return <article className={`problem-card offset-${index}`} key={item.title}><div className="problem-card-top"><span>{item.number}</span><Icon size={23} strokeWidth={1.35} /></div><small>{item.signal}</small><h3>{item.title}</h3><blockquote>“{item.question}”</blockquote><p>{item.copy}</p><div className="measure"><span>WHAT WE’D MEASURE</span>{item.measure}</div></article>; })}</div>
     </div></section>
 
-    <section className="transformation section-ivory" id="approach"><div className="shell">
-      <div className="section-topline dark"><span>03 / WHAT TRANSFORMATION MEANS</span><span>WORK BEFORE TECHNOLOGY</span></div>
-      <div className="section-heading split-heading dark-copy"><h2>AI transformation starts with changing how work moves.</h2><p>Technology earns its place when it makes a real operating process clearer, faster, and easier to control.</p></div>
-      <div className="transformation-cards"><article><span>01</span><Factory size={31} strokeWidth={1.25} /><h3>Understand the operation</h3><p>Follow one real exception from signal to closure. Map the people, systems, decisions, handovers, delays, and failure points.</p></article><article><span>02</span><Gauge size={31} strokeWidth={1.25} /><h3>Redesign the workflow</h3><p>Decide where AI should gather context, prepare actions, coordinate follow-ups, or surface exceptions.</p></article><article><span>03</span><ShieldCheck size={31} strokeWidth={1.25} /><h3>Keep people in control</h3><p>Set permissions, approvals, escalation rules, and review trails before the workflow touches live operations.</p></article></div>
-    </div></section>
 
     <section className="explorer section-dark" id="explorer"><div className="shell">
-      <div className="section-topline"><span>04 / OPPORTUNITY EXPLORER</span><span>SELECT AN OPERATING AREA</span></div>
-      <div className="section-heading split-heading"><h2>Where could work<br />move differently?</h2><p>Explore the coordination patterns around six common manufacturing areas. The right starting point depends on your workflow, systems, and operating constraints.</p></div>
+      <div className="section-topline"><span>03 / WHERE AI FITS</span><span>PICK AN AREA</span></div>
+      <div className="section-heading split-heading"><h2>Where could work<br />move differently?</h2><p>Six areas where plant teams lose the most time to follow-ups. Pick one to see where it slows down, what AI would do, and what your team still decides.</p></div>
       <div className="explorer-grid"><div className="explorer-tabs" role="tablist" aria-label="Manufacturing operating areas">{opportunities.map((item, index) => <button key={item.id} id={`opportunity-tab-${item.id}`} role="tab" aria-selected={activeOpportunity === index} aria-controls="opportunity-panel" tabIndex={activeOpportunity === index ? 0 : -1} onClick={() => setActiveOpportunity(index)} onKeyDown={(event) => selectOpportunityFromKeyboard(event, index)}><span>{item.index}</span>{item.label}<ArrowRight size={18} /></button>)}</div>
-        <div className="explorer-panel" id="opportunity-panel" role="tabpanel" aria-labelledby={`opportunity-tab-${active.id}`}><div className="panel-orbit" aria-hidden="true"><span /><span /><span /></div><div className="panel-index">{active.index}</div><h3>{active.title}</h3><div className="panel-facts"><div><small>COMMON FRICTION</small><p>{active.friction}</p></div><div><small>POTENTIAL AI ROLE</small><p>{active.ai}</p></div><div><small>HUMAN RESPONSIBILITY</small><p>{active.human}</p></div></div><div className="panel-footer"><div><small>POSSIBLE SUCCESS MEASURE</small><strong>{active.measure}</strong></div><div><small>FIRST FEASIBILITY QUESTION</small><strong>{active.question}</strong></div></div></div>
+        <div className="explorer-panel" id="opportunity-panel" role="tabpanel" aria-labelledby={`opportunity-tab-${active.id}`}><div className="panel-orbit" aria-hidden="true"><span /><span /><span /></div><div className="panel-index">{active.index}</div><h3>{active.title}</h3><div className="panel-facts"><div><small>WHERE IT SLOWS DOWN</small><p>{active.friction}</p></div><div><small>WHAT AI DOES</small><p>{active.ai}</p></div><div><small>WHAT YOUR TEAM DECIDES</small><p>{active.human}</p></div></div><div className="panel-footer"><div><small>WHAT WE’D MEASURE</small><strong>{active.measure}</strong></div><div><small>FIRST QUESTION WE’D ASK</small><strong>{active.question}</strong></div></div></div>
       </div>
     </div></section>
 
-    <section className="point-of-view section-amber"><div className="shell">
-      <div className="section-topline dark"><span>05 / XPLORMATE POINT OF VIEW</span><span>THE OPERATIONAL LAYER</span></div>
-      <div className="statement"><p>Systems provide visibility.</p><h2>Operations improve when visibility leads to action.</h2></div>
-      <div className="pov-grid"><p>Most manufacturers already have systems, spreadsheets, reports, and experienced people. The opportunity is often found in the work between them: gathering context, coordinating decisions, following up with owners, managing exceptions, and confirming that an issue is truly closed.</p><p>Xplormate focuses on this operational layer. We examine how work moves today and where AI can support a faster, clearer, and more accountable process.</p></div>
+    <section className="approach section-ivory" id="approach"><div className="shell">
+      <div className="section-topline dark"><span>04 / HOW A PILOT WORKS</span><span>ONE WORKFLOW AT A TIME</span></div>
+      <div className="approach-layout"><div className="approach-intro"><h2>Start small. Judge it by your own numbers.</h2><p>No big transformation programme and no system replacement. We take one workflow that repeats every day, run a small paid pilot on it, and measure it the way you already measure your plant.</p><a href="#contact">Talk about one bottleneck <ArrowUpRight size={18} /></a></div><div className="approach-steps">{[["01", "Pick one workflow", "Choose something that repeats and takes too much chasing, like order status, material readiness, or quality closures."], ["02", "Sit with the people who run it", "We spend time with whoever handles it day to day and walk through recent real examples, not a slide deck."], ["03", "Map what really happens", "Who asks whom, where it waits, which spreadsheet or WhatsApp group it lives in, and what “done” means."], ["04", "Run a small paid pilot", "AI takes on the follow-up work for that one workflow. You set the number that decides whether it worked."]].map(([n, title, copy]) => <article key={n}><span>{n}</span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div></div>
+      <div className="promise-row">{[["Your ERP stays", "We work around the systems, spreadsheets and messages you already use."], ["People stay in charge", "AI drafts and flags. Your team approves anything that matters."], ["You set the measure", "Success is defined by your KPI, agreed before the pilot starts."]].map(([title, copy]) => <div key={title}><Check size={18} /><div><strong>{title}</strong><p>{copy}</p></div></div>)}</div>
     </div></section>
 
-    <section className="approach section-ivory"><div className="shell">
-      <div className="section-topline dark"><span>06 / A PRACTICAL START</span><span>ONE BOTTLENECK AT A TIME</span></div>
-      <div className="approach-layout"><div className="approach-intro"><h2>Start with one operational bottleneck.</h2><p>A focused workflow gives every conversation a real trigger, responsible people, operating constraints, and an outcome worth measuring.</p><a href="#contact">Discuss a workflow <ArrowUpRight size={18} /></a></div><div className="approach-steps">{[["01", "Observe the real workflow", "Walk through a recent example: the trigger, people, tools, delays, exceptions, and decisions."], ["02", "Design the intervention", "Choose where AI can remove coordination work, define the controls, and set a measure that matters."], ["03", "Scope the first implementation", "Set the workflow boundary, information needs, responsibilities, integration points, and expected outcome."]].map(([n, title, copy]) => <article key={n}><span>{n}</span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div></div>
-    </div></section>
 
-    <section className="evaluation section-dark"><div className="shell evaluation-grid"><div><div className="section-topline"><span>07 / BEFORE APPLYING AI</span></div><h2>Understand the operation.</h2><p>The goal is a workflow people can trust, operate, and improve.</p></div><div className="evaluation-list">{["Actual workflow and exceptions", "ERP, MES, spreadsheets, email, and messages", "Information availability and ownership", "Human approvals and escalation", "Operational and security constraints", "Current effort and delays", "A measurable definition of success"].map((item, index) => <div key={item}><span>{String(index + 1).padStart(2, "0")}</span><strong>{item}</strong><Check size={17} /></div>)}</div></div></section>
-
-    <section className="faq section-ivory" id="questions"><div className="shell faq-grid"><div className="faq-intro"><div className="section-topline dark"><span>08 / PRACTICAL QUESTIONS</span></div><h2>Before we talk.</h2><p>Clear expectations make the first conversation more useful.</p></div><div className="faq-items">{faq.map(([question, answer]) => <details key={question}><summary>{question}<ChevronDown size={20} /></summary><p>{answer}</p></details>)}</div></div></section>
+    <section className="faq section-ivory" id="questions"><div className="shell faq-grid"><div className="faq-intro"><div className="section-topline dark"><span>05 / PRACTICAL QUESTIONS</span></div><h2>Before we talk.</h2><p>Clear expectations make the first conversation more useful.</p></div><div className="faq-items">{faq.map(([question, answer]) => <details key={question}><summary>{question}<ChevronDown size={20} /></summary><p>{answer}</p></details>)}</div></div></section>
 
     <section className="contact section-dark" id="contact">
       <div className="contact-glow" aria-hidden="true" />
       <div className="shell contact-grid">
         <div>
-          <div className="section-topline"><span>09 / START THE CONVERSATION</span></div>
+          <div className="section-topline"><span>06 / START THE CONVERSATION</span></div>
           <h2>What does your team <em>keep chasing?</em></h2>
         </div>
         <div className="contact-content">
-          <p>Share your details. We’ll review them and contact you directly. <strong>All fields are required.</strong></p>
-          <a className="contact-email" href={`mailto:${businessEmail}`}>Prefer email? {businessEmail} <ArrowUpRight size={17} /></a>
+          <p>Tell us a little about your plant and what your team keeps chasing. We’ll read every message and reply personally.</p>
+          <div className="contact-channels">
+            <a className="channel" href={`mailto:${businessEmail}`} onClick={() => track("email_click")}><Mail size={17} /> {businessEmail}</a>
+            <a className="channel" href={linkedinProfile} target="_blank" rel="noopener noreferrer" onClick={() => track("linkedin_click")}>LinkedIn <ArrowUpRight size={16} /></a>
+          </div>
           {!leadSubmitted ? (
             <form className="lead-form" onSubmit={handleLeadSubmit}>
               <div className="lead-form-grid">
@@ -206,16 +201,21 @@ export default function Home() {
                   <input id="lead-role" name="role" type="text" autoComplete="organization-title" required aria-required="true" maxLength={120} aria-invalid={Boolean(leadFieldErrors.role)} aria-describedby={leadFieldErrors.role ? "lead-role-error" : undefined} />
                   {leadFieldErrors.role ? <small className="field-error" id="lead-role-error">{leadFieldErrors.role}</small> : null}
                 </label>
+                <label className={`field-wide${leadFieldErrors.challenge ? " has-error" : ""}`} htmlFor="lead-challenge">
+                  <span>What does your team keep chasing? <i className="optional-mark">optional</i></span>
+                  <textarea id="lead-challenge" name="challenge" rows={4} maxLength={2000} placeholder="e.g. Every morning we call suppliers and check Excel to find which orders are short on material." aria-invalid={Boolean(leadFieldErrors.challenge)} aria-describedby={leadFieldErrors.challenge ? "lead-challenge-error" : undefined} />
+                  {leadFieldErrors.challenge ? <small className="field-error" id="lead-challenge-error">{leadFieldErrors.challenge}</small> : null}
+                </label>
               </div>
               {leadError ? <p className="form-error" role="alert" aria-live="polite">{leadError}</p> : null}
               <button className="button button-amber" type="submit" disabled={leadSubmitting} aria-busy={leadSubmitting}>
-                {leadSubmitting ? "Checking details" : "Start a conversation"} <ArrowUpRight size={20} />
+                {leadSubmitting ? "Sending" : "Start a conversation"} <ArrowUpRight size={20} />
               </button>
-              <small className="form-note">All four details are required. We’ll review them and contact you directly.</small>
+              <small className="form-note">Name, email, company and role are required. Your details are only used to reply to you.</small>
             </form>
           ) : (
             <div className="lead-success" aria-live="polite">
-              <p>Thanks. We’ve received your details. We’ll review them and contact you directly.</p>
+              <p>Thanks, we’ve received your details and will get back to you personally.</p>
               <button className="text-button" type="button" onClick={() => { setLeadSubmitted(false); setLeadError(""); setLeadFieldErrors({}); }}>Submit another response</button>
             </div>
           )}
