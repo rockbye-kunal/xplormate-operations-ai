@@ -20,7 +20,17 @@ npm run lint
 npm run build
 ```
 
-The lead form posts to `/api/leads`. The endpoint validates the required name, email, company, and role fields and returns a clear field-level error when a value is missing or invalid. Lead storage and notification delivery can be added when the operating workflow is defined.
+The lead form posts to `/api/leads`. The endpoint validates the required name, email, company, and role fields (plus the optional "what does your team keep chasing" field) and saves the lead to Supabase.
+
+## Environment variables
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `SUPABASE_URL`, `SUPABASE_SECRET_KEY` | Yes | Lead storage |
+| `NEXT_PUBLIC_LINKEDIN_PARTNER_ID` | No | Loads the LinkedIn Insight Tag |
+| `NEXT_PUBLIC_CLARITY_ID` | No | Loads Microsoft Clarity |
+
+Run `supabase/migrations/20260925120000_add_lead_challenge.sql` on the database to store the optional field. Until then, leads are still saved without it.
 
 ## Deploy to Vercel
 
