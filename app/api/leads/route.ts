@@ -7,6 +7,7 @@ const leadSchema = z.object({
   email: z.string().trim().email("Enter a valid email address.").max(254, "Email is too long."),
   company: z.string().trim().min(2, "Enter your company.").max(160, "Company is too long."),
   role: z.string().trim().min(2, "Enter your role.").max(120, "Role is too long."),
+  challenge: z.string().trim().max(2000, "Please keep this under 2,000 characters.").optional().default(""),
 });
 
 function getSupabaseAdmin() {
@@ -59,10 +60,19 @@ export async function POST(request: Request) {
 
   try {
     const supabase = getSupabaseAdmin();
-    const { error } = await supabase.from("leads").insert({
+    let { error } = await supabase.from("leads").insert({
       ...result.data,
       source: "website",
     });
+
+    // If the challenge column has not been added to the database yet,
+    // still save the core lead instead of losing it.
+    if (error && (error.code === "PGRST204" || error.code === "42703")) {
+      console.warn("Lead extra columns missing; saving core fields only. Run the latest Supabase migration.");
+      const { challenge: _challenge, ...core } = result.data;
+      void _challenge;
+      ({ error } = await supabase.from("leads").insert({ ...core, source: "website" }));
+    }
 
     if (error) {
       console.error("Lead storage failed", { code: error.code, message: error.message });
