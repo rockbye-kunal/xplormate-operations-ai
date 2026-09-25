@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { clarityId, linkedinPartnerId } from "../trackers";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Xplormate",
@@ -28,13 +29,19 @@ export default function PrivacyPolicyPage() {
 
         <section>
           <h2>Information you provide</h2>
-          <p>When you submit the contact form, we collect your name, email address, company, and role. These fields are required so we can understand who is reaching out and respond to the enquiry.</p>
+          <p>When you submit the contact form, we collect your name, email address, company, and role. These fields are required so we can understand who is reaching out and respond to the enquiry. You can also choose to share a short description of the work your team keeps chasing. This is optional.</p>
         </section>
 
         <section>
           <h2>Information collected automatically</h2>
           <p>The website may collect basic technical and aggregate usage information, such as pages viewed, referring source, approximate location, browser, device, and operating system. We use privacy-focused analytics to understand how the site is used and improve it.</p>
-          <p>Our current analytics do not use advertising cookies or cross-site identifiers to identify you. Analytics are kept separate from the contact details you submit.</p>
+          {linkedinPartnerId || clarityId ? (
+            <p>
+              We also use {[linkedinPartnerId ? "the LinkedIn Insight Tag, which shows us aggregate information such as the companies, industries and job functions of visitors" : "", clarityId ? "Microsoft Clarity, which helps us see how visitors scroll and use the page" : ""].filter(Boolean).join(", and ")}. These services may set cookies. We do not receive your name or contact details from them, and they are kept separate from the details you submit through the form.
+            </p>
+          ) : (
+            <p>Our current analytics do not use advertising cookies or cross-site identifiers to identify you. Analytics are kept separate from the contact details you submit.</p>
+          )}
         </section>
 
         <section>
