@@ -174,10 +174,6 @@ export default function Home() {
         </div>
         <div className="contact-content">
           <p>Tell us a little about your plant and what your team keeps chasing. We’ll read every message and reply personally.</p>
-          <div className="contact-channels">
-            <a className="channel" href={`mailto:${businessEmail}`} onClick={() => track("email_click")}><Mail size={17} /> {businessEmail}</a>
-            <a className="channel" href={linkedinProfile} target="_blank" rel="noopener noreferrer" onClick={() => track("linkedin_click")}>LinkedIn <ArrowUpRight size={16} /></a>
-          </div>
           {!leadSubmitted ? (
             <form className="lead-form" onSubmit={handleLeadSubmit}>
               <div className="lead-form-grid">
