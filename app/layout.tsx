@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Your team shouldn’t spend the day chasing updates.",
     description:
-      "One workflow at a time: order status, material shortages, quality issues, shift handovers. Your ERP and spreadsheets stay as they are.",
+      "One workflow at a time: order status, material shortages, quality issues, shift handovers.",
     url: "/",
     siteName: "Xplormate",
     type: "website",
