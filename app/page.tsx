@@ -2,17 +2,11 @@
 
 import { useState } from "react";
 import { track } from "@vercel/analytics";
-import { ArrowRight, ArrowUpRight, Boxes,  Check, ChevronDown, CircleAlert, ClipboardCheck, Clock3, Database, Factory, Gauge, Mail, MapPin, Menu, MessageSquareText, ShieldCheck, Users, Wrench, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, ChevronDown, CircleAlert, Database, Mail, MapPin, Menu, MessageSquareText, Users, X } from "lucide-react";
 
 const linkedinProfile = "https://www.linkedin.com/in/jeetendra-yadav-4363457a/";
 const businessEmail = "jeetendra@xplormate.com";
 
-const problems = [
-  { number: "01", icon: Clock3, title: "Production follow-ups", question: "What changed, who owns the response, and what happens next?", copy: "Updates move through plans, spreadsheets, meetings, and messages. Managers repeatedly rebuild the operating picture before anyone can act.", signal: "Order status changed", measure: "Time spent chasing status" },
-  { number: "02", icon: ClipboardCheck, title: "Quality issue closure", question: "What is blocking verified closure?", copy: "The deviation may be recorded, while investigation, corrective action, approval, and evidence continue through separate channels.", signal: "Deviation raised", measure: "Detection to verified closure" },
-  { number: "03", icon: Wrench, title: "Shift and maintenance handovers", question: "What must the next shift know and own?", copy: "Open issues cross shifts and departments. The task survives, but its context, decisions, and ownership are often lost along the way.", signal: "Open issue at handover", measure: "Unresolved handovers" },
-  { number: "04", icon: Boxes, title: "Material readiness", question: "Which shortage could disrupt the plan next?", copy: "Inventory records exist, but teams still connect material risk, production impact, responsibility, and the next action by hand.", signal: "Material at risk", measure: "Time to identify a blocker" },
-];
 
 const opportunities = [
   { id: "production", label: "Production", index: "01", title: "Production planning & execution", friction: "The plan changes, but the updated priority and its impact do not reach every owner at the same time.", ai: "Gather current context, highlight deviations, and prepare the next follow-up for review.", human: "Confirm the operational priority and approve changes that affect the plan.", measure: "Follow-up effort and response time", question: "Where do plan-versus-actual updates live today?" },
@@ -36,9 +30,8 @@ const faq = [
   ["Would this replace our ERP or MES?", "Replacing a core system is not the starting assumption. We first look at the work surrounding your current ERP, MES, spreadsheets, email, and messaging tools, then assess what connection would actually be useful."],
   ["What if information is spread across different systems?", "That is common and part of the workflow assessment. We map where the information lives, who owns it, when it becomes available, and what can be accessed safely before suggesting an intervention."],
   ["Will AI make operational decisions independently?", "The level of autonomy depends on the task and its consequences. The workflow should explicitly define permissions, human approvals, exception handling, escalation rules, and a review trail."],
-  ["How should we select the first opportunity?", "Choose a recurring task with visible coordination effort, a clear owner, accessible information, and an outcome that can be measured. A narrow workflow creates a better starting point than a broad transformation programme."],
-  ["Why work with an early company?", "You work directly with the people building Xplormate, not a sales team. The first engagement is a small paid pilot on one workflow, judged by a measure you choose, so you can see real results before committing to anything bigger."],
-  ["What happens after the first conversation?", "We walk through one recent example together and see where the work slowed down. If AI can genuinely help, we agree a small paid pilot on that one workflow, with your own number as the measure of success. If it can’t, we’ll tell you."],
+  ["Why work with an early company?", "You work directly with the people building Xplormate, not a sales team, so your feedback shapes the work straight away."],
+  ["What happens after the first conversation?", "We walk through one recent example together and see where the work slowed down. If AI can genuinely help, we suggest a pilot. If it can’t, we’ll tell you."],
 ];
 
 export default function Home() {
@@ -117,7 +110,7 @@ export default function Home() {
     </div></header>
 
     <section className="hero">
-      <img className="hero-image" src="/xplormate-hero.png" alt="Modern manufacturing floor during an active shift" />
+      <img className="hero-image" src="/xplormate-hero.webp" alt="Modern manufacturing floor during an active shift" fetchPriority="high" decoding="async" />
       <div className="hero-shade" /><div className="hero-grid" aria-hidden="true" />
       <div className="hero-content shell">
         <div className="hero-kicker"><span className="signal-pulse" /> FOR PLANT HEADS, MDs AND OPERATIONS LEADERS</div>
@@ -126,54 +119,48 @@ export default function Home() {
           <p>Order status, material shortages, quality issues, shift handovers. We pick one workflow your team keeps chasing and use AI to move it forward. Your ERP and spreadsheets stay as they are.</p>
           <div className="hero-buttons"><a className="button button-amber" href="#contact">Talk about one bottleneck <ArrowRight size={19} /></a><a className="button button-ghost" href="#explorer">See where AI fits</a></div>
         </div>
-        <div className="hero-meta"><span>PRODUCTION / QUALITY / MAINTENANCE / MATERIALS</span><span className="system-status"><i /> WORKS ALONGSIDE YOUR ERP, EXCEL AND WHATSAPP</span></div>
+        <div className="hero-meta"><span>PRODUCTION / QUALITY / MAINTENANCE / MATERIALS</span></div>
       </div>
     </section>
 
     <section className="signal-story section-dark" id="signal-story"><div className="shell">
       <div className="section-topline"><span>01 / THE OPERATING LOOP</span><span>ILLUSTRATIVE WORKFLOW</span></div>
       <div className="section-heading split-heading"><h2>An update should lead<br />to something happening.</h2><p>Knowing about a problem is only the start. What matters is what happens next, who owns it, and how everyone knows it’s done.</p></div>
-      <div className="signal-visual"><img src="/operational-signal.png" alt="Close-up of industrial machinery and an active sensor" /><div className="signal-overlay">
+      <div className="signal-visual"><img src="/operational-signal.webp" alt="Close-up of industrial machinery and an active sensor" loading="lazy" decoding="async" /><div className="signal-overlay">
         <div className="signal-alert"><span className="alert-icon">!</span><div><small>NEW ISSUE</small><strong>Material shortage before next shift</strong></div><span className="signal-time">14:32</span></div>
         <div className="signal-trace" aria-hidden="true"><span /><span /><span /><span /><span /></div>
         <div className="stage-grid">{stages.map((stage) => { const Icon = stage.icon; return <article key={stage.title} className="stage-card"><div className="stage-head"><span>{stage.number}</span><Icon size={20} strokeWidth={1.5} /></div><h3>{stage.title}</h3><p>{stage.copy}</p></article>; })}</div>
       </div></div>
-      <div className="control-note"><ShieldCheck size={21} /><p>People approve every important decision. For each workflow we agree up front what AI may do, when it asks a person, and who signs off.</p></div>
     </div></section>
 
-    <section className="problem-section" id="possibilities"><div className="problem-backdrop"><img src="/human-oversight.png" alt="Manufacturing professional reviewing operations from a control room" /></div><div className="shell problem-content">
-      <div className="section-topline light"><span>02 / WHERE WORK SLOWS DOWN</span><span>SOUND FAMILIAR?</span></div>
-      <div className="section-heading wide-heading"><h2>The factory rarely slows because information is completely missing.</h2><p>It slows because the next action is unclear.</p></div>
-      <div className="problem-cards">{problems.map((item, index) => { const Icon = item.icon; return <article className={`problem-card offset-${index}`} key={item.title}><div className="problem-card-top"><span>{item.number}</span><Icon size={23} strokeWidth={1.35} /></div><small>{item.signal}</small><h3>{item.title}</h3><blockquote>“{item.question}”</blockquote><p>{item.copy}</p><div className="measure"><span>WHAT WE’D MEASURE</span>{item.measure}</div></article>; })}</div>
-    </div></section>
 
 
     <section className="explorer section-dark" id="explorer"><div className="shell">
-      <div className="section-topline"><span>03 / WHERE AI FITS</span><span>PICK AN AREA</span></div>
-      <div className="section-heading split-heading"><h2>Where could work<br />move differently?</h2><p>Six areas where plant teams lose the most time to follow-ups. Pick one to see where it slows down, what AI would do, and what your team still decides.</p></div>
+      <div className="section-topline"><span>02 / WHERE AI FITS</span><span>PICK AN AREA</span></div>
+      <div className="section-heading split-heading"><h2>Where could work<br />move differently?</h2><p>Work rarely stalls because information is missing. It stalls because the next step isn’t clear. Pick an area to see where it slows down, what AI would do, and what your team still decides.</p></div>
       <div className="explorer-grid"><div className="explorer-tabs" role="tablist" aria-label="Manufacturing operating areas">{opportunities.map((item, index) => <button key={item.id} id={`opportunity-tab-${item.id}`} role="tab" aria-selected={activeOpportunity === index} aria-controls="opportunity-panel" tabIndex={activeOpportunity === index ? 0 : -1} onClick={() => setActiveOpportunity(index)} onKeyDown={(event) => selectOpportunityFromKeyboard(event, index)}><span>{item.index}</span>{item.label}<ArrowRight size={18} /></button>)}</div>
         <div className="explorer-panel" id="opportunity-panel" role="tabpanel" aria-labelledby={`opportunity-tab-${active.id}`}><div className="panel-orbit" aria-hidden="true"><span /><span /><span /></div><div className="panel-index">{active.index}</div><h3>{active.title}</h3><div className="panel-facts"><div><small>WHERE IT SLOWS DOWN</small><p>{active.friction}</p></div><div><small>WHAT AI DOES</small><p>{active.ai}</p></div><div><small>WHAT YOUR TEAM DECIDES</small><p>{active.human}</p></div></div><div className="panel-footer"><div><small>WHAT WE’D MEASURE</small><strong>{active.measure}</strong></div><div><small>FIRST QUESTION WE’D ASK</small><strong>{active.question}</strong></div></div></div>
       </div>
     </div></section>
 
     <section className="approach section-ivory" id="approach"><div className="shell">
-      <div className="section-topline dark"><span>04 / HOW A PILOT WORKS</span><span>ONE WORKFLOW AT A TIME</span></div>
+      <div className="section-topline dark"><span>03 / HOW A PILOT WORKS</span><span>ONE WORKFLOW AT A TIME</span></div>
       <div className="approach-layout"><div className="approach-intro"><h2>Start small. Judge it by your own numbers.</h2><p>No big transformation programme and no system replacement. We take one workflow that repeats every day, run a small paid pilot on it, and measure it the way you already measure your plant.</p><a href="#contact">Talk about one bottleneck <ArrowUpRight size={18} /></a></div><div className="approach-steps">{[["01", "Pick one workflow", "Choose something that repeats and takes too much chasing, like order status, material readiness, or quality closures."], ["02", "Sit with the people who run it", "We spend time with whoever handles it day to day and walk through recent real examples, not a slide deck."], ["03", "Map what really happens", "Who asks whom, where it waits, which spreadsheet or WhatsApp group it lives in, and what “done” means."], ["04", "Run a small paid pilot", "AI takes on the follow-up work for that one workflow. You set the number that decides whether it worked."]].map(([n, title, copy]) => <article key={n}><span>{n}</span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div></div>
       <div className="promise-row">{[["Your ERP stays", "We work around the systems, spreadsheets and messages you already use."], ["People stay in charge", "AI drafts and flags. Your team approves anything that matters."], ["You set the measure", "Success is defined by your KPI, agreed before the pilot starts."]].map(([title, copy]) => <div key={title}><Check size={18} /><div><strong>{title}</strong><p>{copy}</p></div></div>)}</div>
     </div></section>
 
 
-    <section className="faq section-ivory" id="questions"><div className="shell faq-grid"><div className="faq-intro"><div className="section-topline dark"><span>05 / PRACTICAL QUESTIONS</span></div><h2>Before we talk.</h2><p>Clear expectations make the first conversation more useful.</p></div><div className="faq-items">{faq.map(([question, answer]) => <details key={question}><summary>{question}<ChevronDown size={20} /></summary><p>{answer}</p></details>)}</div></div></section>
+    <section className="faq section-ivory" id="questions"><div className="shell faq-grid"><div className="faq-intro"><div className="section-topline dark"><span>04 / PRACTICAL QUESTIONS</span></div><h2>Before we talk.</h2><p>Clear expectations make the first conversation more useful.</p></div><div className="faq-items">{faq.map(([question, answer]) => <details key={question}><summary>{question}<ChevronDown size={20} /></summary><p>{answer}</p></details>)}</div></div></section>
 
     <section className="contact section-dark" id="contact">
       <div className="contact-glow" aria-hidden="true" />
       <div className="shell contact-grid">
         <div>
-          <div className="section-topline"><span>06 / START THE CONVERSATION</span></div>
+          <div className="section-topline"><span>05 / START THE CONVERSATION</span></div>
           <h2>What does your team <em>keep chasing?</em></h2>
         </div>
         <div className="contact-content">
-          <p>Tell us a little about your plant and what your team keeps chasing. We’ll read every message and reply personally.</p>
+          <p>Share a few details and we’ll reply personally.</p>
           {!leadSubmitted ? (
             <form className="lead-form" onSubmit={handleLeadSubmit}>
               <div className="lead-form-grid">
