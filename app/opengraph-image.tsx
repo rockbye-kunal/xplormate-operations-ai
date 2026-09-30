@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 // Link-preview image for LinkedIn, WhatsApp and X, generated at build time.
-export const alt = "Xplormate: your team shouldn’t spend the day chasing updates.";
+export const alt = "Xplormate: AI transformation for manufacturing operations.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -40,15 +40,15 @@ export default function OpengraphImage() {
           <span>Xplormate</span>
           <span style={{ color: "#ffb629" }}>.</span>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", fontSize: 76, fontWeight: 700, lineHeight: 1.04, letterSpacing: -3 }}>
-          <span>Your team shouldn’t spend</span>
+        <div style={{ display: "flex", flexDirection: "column", fontSize: 74, fontWeight: 700, lineHeight: 1.04, letterSpacing: -3 }}>
+          <span>Make the work that runs</span>
           <div style={{ display: "flex" }}>
-            <span>the day&nbsp;</span>
-            <span style={{ color: "#ffb629" }}>chasing updates.</span>
+            <span>your plant&nbsp;</span>
+            <span style={{ color: "#ffb629" }}>move.</span>
           </div>
         </div>
         <div style={{ display: "flex", fontSize: 24, letterSpacing: 2, color: "#c9cec8" }}>
-          ORDER STATUS · MATERIALS · QUALITY · HANDOVERS
+          AI TRANSFORMATION FOR MANUFACTURING OPERATIONS
         </div>
       </div>
     ),

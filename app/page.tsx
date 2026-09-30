@@ -25,12 +25,27 @@ const stages = [
   { number: "05", title: "Closed properly", copy: "A person confirms the response, updates the plan, and marks it done.", icon: Check },
 ];
 
+const operationSources = [
+  { area: "Engineering", brand: "Autodesk", logo: "autodesk", x: 50, y: 7 },
+  { area: "ERP / orders", brand: "SAP", logo: "sap", x: 70, y: 13 },
+  { area: "Planning", brand: "Google Sheets", logo: "googlesheets", x: 85, y: 29 },
+  { area: "Materials / dispatch", brand: "Odoo", logo: "odoo", x: 90, y: 50 },
+  { area: "Shop floor", brand: "Siemens", logo: "siemens", x: 82, y: 72 },
+  { area: "Equipment", brand: "Rockwell Automation", logo: "rockwellautomation", x: 67, y: 87 },
+  { area: "Quality / safety", brand: "Google Forms", logo: "googleforms", x: 50, y: 93 },
+  { area: "Maintenance", brand: "Jira", logo: "jira", x: 33, y: 87 },
+  { area: "Utilities", brand: "ABB", logo: "abb", x: 18, y: 72 },
+  { area: "Email", brand: "Gmail", logo: "gmail", x: 10, y: 50 },
+  { area: "Team updates", brand: "WhatsApp", logo: "whatsapp", x: 15, y: 29 },
+  { area: "Reporting", brand: "Looker", logo: "looker", x: 30, y: 13 },
+];
+
 const faq = [
   ["Where can AI fit within manufacturing operations?", "A useful starting point is usually a recurring coordination task: gathering updates, connecting context, routing an exception, preparing a follow-up, or confirming closure. The workflow and its consequences determine what AI should support."],
   ["What if information is spread across different systems?", "That is common and part of the workflow assessment. We map where the information lives, who owns it, when it becomes available, and what can be accessed safely before suggesting an intervention."],
   ["Will AI make operational decisions independently?", "The level of autonomy depends on the task and its consequences. The workflow should explicitly define permissions, human approvals, exception handling, escalation rules, and a review trail."],
-  ["Why work with an early company?", "You work directly with the people building Xplormate, not a sales team, so your feedback shapes the work straight away."],
-  ["What happens after the first conversation?", "We walk through one recent example together and see where the work slowed down. If AI can genuinely help, we suggest a pilot. If it can’t, we’ll tell you."],
+  ["What happens after the first conversation?", "We walk through one recent example together and see where the work slowed down. If AI can genuinely help, we suggest a focused paid pilot with a clear measure of success. If it can’t, we’ll tell you."],
+  ["What happens after a successful pilot?", "We review the result with your team, decide what needs to change, and identify where the same approach could help next. Wider rollout is a separate decision, based on what the pilot actually proved."],
 ];
 
 export default function Home() {
@@ -104,7 +119,7 @@ export default function Home() {
     <header className="site-header"><div className="header-inner">
       <a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a>
       <button className="mobile-nav-toggle" type="button" aria-label={navOpen ? "Close navigation" : "Open navigation"} aria-expanded={navOpen} aria-controls="site-navigation" onClick={() => setNavOpen((open) => !open)}>{navOpen ? <X size={18} /> : <Menu size={18} />}</button>
-      <nav className={`site-nav${navOpen ? " is-open" : ""}`} id="site-navigation" aria-label="Main navigation"><a href="#explorer" onClick={() => setNavOpen(false)}>Where AI fits</a><a href="#approach" onClick={() => setNavOpen(false)}>How a pilot works</a><a href="#questions" onClick={() => setNavOpen(false)}>FAQ</a></nav>
+      <nav className={`site-nav${navOpen ? " is-open" : ""}`} id="site-navigation" aria-label="Main navigation"><a href="#transformation" onClick={() => setNavOpen(false)}>How we work</a><a href="#explorer" onClick={() => setNavOpen(false)}>Where AI fits</a><a href="#approach" onClick={() => setNavOpen(false)}>Start with a pilot</a></nav>
       <a className="header-cta" href="#contact" onClick={() => setNavOpen(false)}>Talk to us <ArrowUpRight size={17} /></a>
     </div></header>
 
@@ -112,18 +127,44 @@ export default function Home() {
       <img className="hero-image" src="/xplormate-hero.webp" alt="Modern manufacturing floor during an active shift" fetchPriority="high" decoding="async" />
       <div className="hero-shade" /><div className="hero-grid" aria-hidden="true" />
       <div className="hero-content shell">
-        <div className="hero-kicker"><span className="signal-pulse" /> FOR PLANT HEADS, MDs AND OPERATIONS LEADERS</div>
-        <h1>Your team shouldn’t spend<br />the day <em>chasing updates.</em></h1>
+        <div className="hero-kicker"><span className="signal-pulse" /> AI TRANSFORMATION FOR MANUFACTURING</div>
+        <h1>Make the work that runs your plant <em>move.</em></h1>
         <div className="hero-actions">
-          <p>Order status, material shortages, quality issues, shift handovers. We pick one workflow your team keeps chasing and use AI to move it forward.</p>
-          <div className="hero-buttons"><a className="button button-amber" href="#contact">Talk about one bottleneck <ArrowRight size={19} /></a><a className="button button-ghost" href="#explorer">See where AI fits</a></div>
+          <p>We help manufacturers redesign core workflows across production, quality, maintenance and materials. AI brings the context together and moves routine follow-ups forward; your people make the decisions that matter.</p>
+          <div className="hero-buttons"><a className="button button-amber" href="#contact">Discuss a workflow <ArrowRight size={19} /></a><a className="button button-ghost" href="#transformation">See how we work</a></div>
         </div>
-        <div className="hero-meta"><span>PRODUCTION / QUALITY / MAINTENANCE / MATERIALS</span></div>
+        <div className="hero-meta"><span>START WITH ONE WORKFLOW / MEASURE THE RESULT / EXPAND WHAT WORKS</span></div>
       </div>
     </section>
 
+    <section className="transformation section-ivory" id="transformation"><div className="shell">
+      <div className="section-topline dark"><span>01 / AI TRANSFORMATION</span><span>BUILT AROUND YOUR OPERATION</span></div>
+      <div className="section-heading split-heading"><h2>Redesign the work.<br />Then put AI to work.</h2><p>Transformation starts with how a plant actually runs: which signal matters, who owns the next action, and how the team knows an issue is closed. We shape AI around that operating flow.</p></div>
+      <div className="transformation-flow">
+        <article><span>01 / REDESIGN</span><h3>Redesign a core workflow.</h3><p>Clarify the steps, owners, handoffs and closure criteria around a recurring production, quality, maintenance or materials issue.</p></article>
+        <article><span>02 / APPLY AI</span><h3>Move routine work forward.</h3><p>Bring the available context together, identify exceptions, prepare follow-ups and keep the next owner visible.</p></article>
+        <article><span>03 / KEEP CONTROL</span><h3>Let people decide.</h3><p>Plant teams review consequential actions, resolve trade-offs and verify closure. AI supports the workflow; responsibility stays clear.</p></article>
+      </div>
+      <div className="systems-map" aria-labelledby="systems-map-title">
+        <div className="systems-map-heading"><div><span className="systems-eyebrow">YOUR EXISTING OPERATION</span><h3 id="systems-map-title">Work with the systems you already use.</h3></div><span className="systems-example">Illustrative tools</span></div>
+        <div className="systems-orbit" role="img" aria-label="Examples of manufacturing tools around one workflow: Autodesk for engineering, SAP for ERP and orders, Google Sheets for planning, Odoo for materials and dispatch, Siemens for shop floor, Rockwell Automation for equipment, Google Forms for quality and safety, Jira for maintenance, ABB for utilities, Gmail for email, WhatsApp for team updates, and Looker for reporting.">
+          <span className="orbit-haze orbit-haze-one" aria-hidden="true" /><span className="orbit-haze orbit-haze-two" aria-hidden="true" />
+          <span className="orbit-ring orbit-ring-outer" aria-hidden="true" />
+          <svg className="orbit-energy" viewBox="0 0 1000 660" preserveAspectRatio="none" aria-hidden="true">
+            <defs><linearGradient id="orbit-flow-gradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#8fc09e" stopOpacity="0" /><stop offset="0.34" stopColor="#acd8ad" stopOpacity="0.7" /><stop offset="0.68" stopColor="#ffd278" stopOpacity="0.7" /><stop offset="1" stopColor="#ffb629" stopOpacity="0" /></linearGradient></defs>
+            <path className="orbit-energy-glow" d="M85 400 C250 170 350 505 530 326 S755 150 915 355" />
+            <path className="orbit-energy-glow orbit-energy-glow-second" d="M155 150 C350 380 360 150 565 350 S760 485 860 515" />
+            <path className="orbit-energy-line" d="M85 400 C250 170 350 505 530 326 S755 150 915 355" />
+            <path className="orbit-energy-line orbit-energy-line-second" d="M155 150 C350 380 360 150 565 350 S760 485 860 515" />
+          </svg>
+          {operationSources.map((source, index) => <div className="orbit-source" key={source.brand} style={{ left: `${source.x}%`, top: `${source.y}%`, animationDelay: `${index * -0.4}s` }} aria-hidden="true"><span className="orbit-logo"><img src={`/tool-logos/${source.logo}.svg`} width="34" height="34" alt="" /></span><span className="orbit-area">{source.area}</span></div>)}
+        </div>
+        <p className="systems-note">Keep your core systems. We map the sources a chosen workflow needs, then agree what can be accessed safely during a pilot.</p>
+      </div>
+    </div></section>
+
     <section className="signal-story section-dark" id="signal-story"><div className="shell">
-      <div className="section-topline"><span>01 / THE OPERATING LOOP</span><span>ILLUSTRATIVE WORKFLOW</span></div>
+      <div className="section-topline"><span>02 / THE OPERATING LOOP</span><span>ILLUSTRATIVE WORKFLOW</span></div>
       <div className="section-heading split-heading"><h2>An update should lead<br />to something happening.</h2><p>Knowing about a problem is only the start. What matters is what happens next, who owns it, and how everyone knows it’s done.</p></div>
       <div className="signal-visual"><img src="/operational-signal.webp" alt="Close-up of industrial machinery and an active sensor" loading="lazy" decoding="async" /><div className="signal-overlay">
         <div className="signal-alert"><span className="alert-icon">!</span><div><small>NEW ISSUE</small><strong>Material shortage before next shift</strong></div><span className="signal-time">14:32</span></div>
@@ -135,28 +176,27 @@ export default function Home() {
 
 
     <section className="explorer section-dark" id="explorer"><div className="shell">
-      <div className="section-topline"><span>02 / WHERE AI FITS</span><span>PICK AN AREA</span></div>
-      <div className="section-heading split-heading"><h2>Where could work<br />move differently?</h2><p>Work rarely stalls because information is missing. It stalls because the next step isn’t clear. Pick an area to see where it slows down, what AI would do, and what your team still decides.</p></div>
+      <div className="section-topline"><span>03 / WHERE AI FITS</span><span>PICK AN AREA</span></div>
+      <div className="section-heading split-heading"><h2>Where could work<br />move differently?</h2><p>Even when information is available, work can stall because the next step isn’t clear. Pick an area to see where it slows down, how AI could help, and what your team would still decide.</p></div>
       <div className="explorer-grid"><div className="explorer-tabs" role="tablist" aria-label="Manufacturing operating areas">{opportunities.map((item, index) => <button key={item.id} id={`opportunity-tab-${item.id}`} role="tab" aria-selected={activeOpportunity === index} aria-controls="opportunity-panel" tabIndex={activeOpportunity === index ? 0 : -1} onClick={() => setActiveOpportunity(index)} onKeyDown={(event) => selectOpportunityFromKeyboard(event, index)}><span>{item.index}</span>{item.label}<ArrowRight size={18} /></button>)}</div>
-        <div className="explorer-panel" id="opportunity-panel" role="tabpanel" aria-labelledby={`opportunity-tab-${active.id}`}><div className="panel-orbit" aria-hidden="true"><span /><span /><span /></div><div className="panel-index">{active.index}</div><h3>{active.title}</h3><div className="panel-facts"><div><small>WHERE IT SLOWS DOWN</small><p>{active.friction}</p></div><div><small>WHAT AI DOES</small><p>{active.ai}</p></div><div><small>WHAT YOUR TEAM DECIDES</small><p>{active.human}</p></div></div><div className="panel-footer"><div><small>WHAT WE’D MEASURE</small><strong>{active.measure}</strong></div><div><small>FIRST QUESTION WE’D ASK</small><strong>{active.question}</strong></div></div></div>
+        <div className="explorer-panel" id="opportunity-panel" role="tabpanel" aria-labelledby={`opportunity-tab-${active.id}`}><div className="panel-orbit" aria-hidden="true"><span /><span /><span /></div><div className="panel-index">{active.index}</div><h3>{active.title}</h3><div className="panel-facts"><div><small>WHERE IT SLOWS DOWN</small><p>{active.friction}</p></div><div><small>HOW AI COULD HELP</small><p>{active.ai}</p></div><div><small>WHAT YOUR TEAM DECIDES</small><p>{active.human}</p></div></div><div className="panel-footer"><div><small>WHAT WE’D MEASURE</small><strong>{active.measure}</strong></div><div><small>FIRST QUESTION WE’D ASK</small><strong>{active.question}</strong></div></div></div>
       </div>
     </div></section>
 
     <section className="approach section-ivory" id="approach"><div className="shell">
-      <div className="section-topline dark"><span>03 / HOW A PILOT WORKS</span><span>ONE WORKFLOW AT A TIME</span></div>
-      <div className="approach-layout"><div className="approach-intro"><h2>Start small. Judge it by your own numbers.</h2><p>No big transformation programme. We take one workflow that repeats every day, run a small paid pilot on it, and measure it the way you already measure your plant.</p><a href="#contact">Talk about one bottleneck <ArrowUpRight size={18} /></a></div><div className="approach-steps">{[["01", "Pick one workflow", "Choose something that repeats and takes too much chasing, like order status, material readiness, or quality closures."], ["02", "Sit with the people who run it", "We spend time with whoever handles it day to day and walk through recent real examples, not a slide deck."], ["03", "Map what really happens", "Who asks whom, where it waits, which spreadsheet or WhatsApp group it lives in, and what “done” means."], ["04", "Run a small paid pilot", "AI takes on the follow-up work for that one workflow. You set the number that decides whether it worked."]].map(([n, title, copy]) => <article key={n}><span>{n}</span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div></div>
-      <div className="promise-row">{[["Nothing gets replaced", "We work with the systems your plant already runs on, whatever they are."], ["People stay in charge", "AI drafts and flags. Your team approves anything that matters."], ["You set the measure", "Success is defined by your KPI, agreed before the pilot starts."]].map(([title, copy]) => <div key={title}><Check size={18} /><div><strong>{title}</strong><p>{copy}</p></div></div>)}</div>
+      <div className="section-topline dark"><span>04 / HOW WE START</span><span>ONE WORKFLOW AT A TIME</span></div>
+      <div className="approach-layout"><div className="approach-intro"><h2>Start with one workflow. Build from proof.</h2><p>A focused paid pilot tests whether AI can improve work your plant already does. We agree on the measure before starting, review the result together, and only then decide what should expand.</p><a href="#contact">Discuss a workflow <ArrowUpRight size={18} /></a></div><div className="approach-steps">{[["01", "Choose a recurring bottleneck", "Start with an operational workflow that costs time or delays action, such as material readiness or quality issue closure."], ["02", "Understand the real work", "Walk through recent examples with the people who run it, including the systems, messages, decisions and handovers."], ["03", "Agree on the measure", "Set a baseline and decide what would count as a useful improvement for your plant."], ["04", "Run a focused paid pilot", "Apply AI to the routine coordination steps while your team reviews important decisions and verifies the outcome."], ["05", "Expand what works", "Review the evidence together. If the pilot proves useful, identify the next workflow or team where the approach could help."]].map(([n, title, copy]) => <article key={n}><span>{n}</span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div></div>
     </div></section>
 
 
-    <section className="faq section-ivory" id="questions"><div className="shell faq-grid"><div className="faq-intro"><div className="section-topline dark"><span>04 / PRACTICAL QUESTIONS</span></div><h2>Before we talk.</h2><p>Clear expectations make the first conversation more useful.</p></div><div className="faq-items">{faq.map(([question, answer]) => <details key={question}><summary>{question}<ChevronDown size={20} /></summary><p>{answer}</p></details>)}</div></div></section>
+    <section className="faq section-ivory" id="questions"><div className="shell faq-grid"><div className="faq-intro"><div className="section-topline dark"><span>05 / PRACTICAL QUESTIONS</span></div><h2>Before we talk.</h2><p>Clear expectations make the first conversation more useful.</p></div><div className="faq-items">{faq.map(([question, answer]) => <details key={question}><summary>{question}<ChevronDown size={20} /></summary><p>{answer}</p></details>)}</div></div></section>
 
     <section className="contact section-dark" id="contact">
       <div className="contact-glow" aria-hidden="true" />
       <div className="shell contact-grid">
         <div>
-          <div className="section-topline"><span>05 / START THE CONVERSATION</span></div>
-          <h2>What does your team <em>keep chasing?</em></h2>
+          <div className="section-topline"><span>06 / START THE CONVERSATION</span></div>
+          <h2>Where is work getting <em>stuck in your plant?</em></h2>
         </div>
         <div className="contact-content">
           <p>Share a few details and we’ll reply personally.</p>
@@ -184,7 +224,7 @@ export default function Home() {
                   {leadFieldErrors.role ? <small className="field-error" id="lead-role-error">{leadFieldErrors.role}</small> : null}
                 </label>
                 <label className={`field-wide${leadFieldErrors.challenge ? " has-error" : ""}`} htmlFor="lead-challenge">
-                  <span>What does your team keep chasing? <i className="optional-mark">optional</i></span>
+                  <span>Which workflow needs to move better? <i className="optional-mark">optional</i></span>
                   <textarea id="lead-challenge" name="challenge" rows={4} maxLength={2000} placeholder="e.g. Every morning we call suppliers and check Excel to find which orders are short on material." aria-invalid={Boolean(leadFieldErrors.challenge)} aria-describedby={leadFieldErrors.challenge ? "lead-challenge-error" : undefined} />
                   {leadFieldErrors.challenge ? <small className="field-error" id="lead-challenge-error">{leadFieldErrors.challenge}</small> : null}
                 </label>
@@ -193,7 +233,7 @@ export default function Home() {
               <button className="button button-amber" type="submit" disabled={leadSubmitting} aria-busy={leadSubmitting}>
                 {leadSubmitting ? "Sending" : "Start a conversation"} <ArrowUpRight size={20} />
               </button>
-              <small className="form-note">Name, email, company and role are required. Your details are only used to reply to you.</small>
+              <small className="form-note">Name, email, company and role are required. We use your details to review and respond to your enquiry.</small>
             </form>
           ) : (
             <div className="lead-success" aria-live="polite">
@@ -205,6 +245,6 @@ export default function Home() {
       </div>
     </section>
 
-    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a><p>AI transformation for manufacturing operations.</p><address className="footer-address"><MapPin size={15} strokeWidth={1.5} /><span>BTM, 2nd Stage,<br />Bengaluru, 560076</span></address><div className="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href={`mailto:${businessEmail}`}><Mail size={15} /> Email</a><a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></div></footer>
+    <footer className="site-footer section-dark"><div className="shell footer-grid"><a className="wordmark" href="#top" aria-label="Xplormate home"><img className="brand-logo" src="/xplormate-logo.jpg" alt="" width="44" height="44" /><span>Xplormate<span className="brand-dot">.</span></span></a><address className="footer-address"><MapPin size={15} strokeWidth={1.5} /><span>BTM, 2nd Stage,<br />Bengaluru, 560076</span></address><div className="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href={`mailto:${businessEmail}`}><Mail size={15} /> Email</a><a href={linkedinProfile} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div></div></footer>
   </main>;
 }

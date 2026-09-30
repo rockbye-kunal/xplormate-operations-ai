@@ -11,23 +11,23 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Xplormate | Less chasing on the shop floor",
+  title: "Xplormate | AI Transformation for Manufacturing Operations",
   description:
-    "Xplormate helps plant heads and MDs take the follow-ups off one workflow at a time: order status, material shortages, quality issues and shift handovers.",
+    "Xplormate helps manufacturers redesign core production, quality, maintenance and materials workflows with AI. Start with one focused paid pilot, measure the result and expand what works.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Your team shouldn’t spend the day chasing updates.",
+    title: "AI transformation for core manufacturing operations | Xplormate",
     description:
-      "One workflow at a time: order status, material shortages, quality issues, shift handovers.",
+      "Redesign the work that runs your plant. Start with one workflow, put AI to work on routine steps and keep your team in control.",
     url: "/",
     siteName: "Xplormate",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Your team shouldn’t spend the day chasing updates.",
+    title: "AI transformation for manufacturing operations | Xplormate",
     description:
-      "Xplormate uses AI to take the follow-ups off one manufacturing workflow at a time.",
+      "Redesign core manufacturing workflows with AI. Start with one focused pilot and measure what improves.",
   },
   icons: {
     icon: "/xplormate-logo.jpg",

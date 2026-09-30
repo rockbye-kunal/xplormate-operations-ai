@@ -23,7 +23,7 @@ export default function PrivacyPolicyPage() {
       </header>
 
       <article className="legal-shell legal-content">
-        <p className="legal-kicker">POLICY / LAST UPDATED 10 SEPTEMBER 2026</p>
+        <p className="legal-kicker">POLICY / LAST UPDATED 30 SEPTEMBER 2026</p>
         <h1>Privacy Policy</h1>
         <p className="legal-lede">This policy explains what Xplormate collects through this website, why we use it, and the choices available to you.</p>
 
